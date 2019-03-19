@@ -15,3 +15,9 @@ The main page will show a list of all tournaments (visible even without log in).
 
 The inspiration is a very simple version of [Challonge](https://challonge.com/).
 
+## Installation
+
+Clone this repository and 
+
+pip install -r requirements.txt
+
