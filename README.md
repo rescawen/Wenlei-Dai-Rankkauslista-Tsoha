@@ -6,8 +6,8 @@ Programming languages: Python, SQL, HTML, CSS
 
 ## Documentation
 
-#### [Userstory](https://github.com/rescawen/Rankkauslista/blob/master/documentation/userstory.md)
-#### [Database Diagram](https://github.com/rescawen/Rankkauslista/blob/master/documentation/tietokantakaavio.md)
+#### [Userstory](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userstory.md)
+#### [Database Diagram](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/dbdiagram.md)
 
 ## Topic Description
 
