@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>TodoApplication</title>
+</head>
+
+<body>
+    {% if current_user.is_authenticated %}
+    <p>
+        Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+    </p>
+    {% endif %}
+
+    {% block body %}
+    <p>
+        Content.
+    </p>
+    {% endblock %}
+</body>
+
+</html>
