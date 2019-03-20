@@ -1,0 +1,27 @@
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('tour_edit', id=tournament.id) }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.name.label }}
+            </td>
+            <td>
+                {{ form.name }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.playercount.label }}
+            </td>
+            <td>
+                {{ form.playercount }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Edit Tournament" />
+            </td>
+        </tr>
+</form>
+{% endblock %}>
