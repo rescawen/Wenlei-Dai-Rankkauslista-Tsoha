@@ -5,4 +5,4 @@ from application.auth.forms import LoginForm
 
 @app.route("/")
 def index():
-    return render_template("index.html", form = LoginForm())
+    return render_template("/index/index.html", form = LoginForm())

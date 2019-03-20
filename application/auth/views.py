@@ -5,19 +5,15 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegistrationForm
 
-@app.route("/auth/login", methods = ["GET", "POST"])
+@app.route("/auth/login", methods = ["POST"])
 def auth_login():
-    if request.method == "GET":
-        return render_template("auth/loginform.html", form = LoginForm())
-
     form = LoginForm(request.form)
     # mahdolliset validoinnit
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        return render_template("auth/loginform.html", form = form,
+        return render_template("index/index.html", form = form,
                                 error = "No such username or password")
-
 
     login_user(user)
     return redirect(url_for("index"))    

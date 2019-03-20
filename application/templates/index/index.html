@@ -1,7 +1,8 @@
-{% extends "layout.html" %}
+{% extends "/index/layout.html" %}
 
 {% block body %}
 {{ error }}
+{% if current_user.is_authenticated == False %}   
 
 <a href="{{ url_for('auth_new') }}">Register as new user</a>
 
@@ -29,4 +30,5 @@
       </td>
     </tr>
 </form>
+{% endif %}
 {% endblock %}
