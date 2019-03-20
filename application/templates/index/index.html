@@ -2,33 +2,55 @@
 
 {% block body %}
 {{ error }}
-{% if current_user.is_authenticated == False %}   
+
+{% if current_user.is_authenticated %}
+
+<a href="{{ url_for('tour_new') }}">Create new tournament</a>
+
+{% for tournament in tournaments %}
+<tr>
+      <td><a href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a></td>
+      <td>{{ tournament.player_count }}</td>
+</tr>
+{% endfor %}
+
+{% else %}
 
 <a href="{{ url_for('auth_new') }}">Register as new user</a>
 
 <form method="POST" action="{{ url_for('auth_login') }}">
-  <table>
-    <tr>
-      <td>
-	{{ form.username.label }}
-      </td>
-      <td>
-	{{ form.username }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-	{{ form.password.label }}
-      </td>
-      <td>
-	{{ form.password }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-	<input type="submit" value="Login"/>
-      </td>
-    </tr>
+      <table>
+            <tr>
+                  <td>
+                        {{ form.username.label }}
+                  </td>
+                  <td>
+                        {{ form.username }}
+                  </td>
+            </tr>
+            <tr>
+                  <td>
+                        {{ form.password.label }}
+                  </td>
+                  <td>
+                        {{ form.password }}
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan="2">
+                        <input type="submit" value="Login" />
+                  </td>
+            </tr>
 </form>
+{% for tournament in tournaments %}
+<tr>
+      <td>{{ tournament.id }}</td>
+      <td>{{ tournament.name }}</td>
+      <td>{{ tournament.player_count }}</td>
+</tr>
+{% endfor %}
+
 {% endif %}
+
+
 {% endblock %}

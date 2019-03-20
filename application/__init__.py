@@ -12,6 +12,9 @@ from application.index import views
 from application.auth import models 
 from application.auth import views
 
+from application.tour import models
+from application.tour import views
+
 # kirjautuminen
 from application.auth.models import User
 from os import urandom

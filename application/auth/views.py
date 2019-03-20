@@ -5,7 +5,7 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegistrationForm
 
-@app.route("/auth/login", methods = ["POST"])
+@app.route("/", methods = ["POST"])
 def auth_login():
     form = LoginForm(request.form)
     # mahdolliset validoinnit
