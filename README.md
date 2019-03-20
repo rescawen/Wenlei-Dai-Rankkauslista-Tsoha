@@ -19,7 +19,7 @@ The inspiration is a very simple version of [Challonge](https://challonge.com/).
 
 ## Installation
 
-Clone this repository and 
+Clone this repository and run:
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
