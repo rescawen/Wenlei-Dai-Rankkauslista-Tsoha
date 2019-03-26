@@ -7,10 +7,38 @@
 
 <a href="{{ url_for('tour_new') }}">Create new tournament</a>
 
+<br/>
+<br/>
+
+<h3>Joined Tournaments</h3>
+
+{% for tournament in joinedtournaments %}
+<tr>
+      <td><a href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a></td>
+      <td>{{ tournament.player_count }}</td>
+      <br/>
+</tr>
+{% endfor %}
+
+<h3>All Tournaments</h3>
+
+
+
 {% for tournament in tournaments %}
 <tr>
       <td><a href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a></td>
       <td>{{ tournament.player_count }}</td>
+      <br/>
+</tr>
+{% endfor %}
+
+<h3>Tournament that I administrate</h3>
+
+{% for tournament in ownedtournaments %}
+<tr>
+      <td><a href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a></td>
+      <td>{{ tournament.player_count }}</td>
+      <br/>
 </tr>
 {% endfor %}
 

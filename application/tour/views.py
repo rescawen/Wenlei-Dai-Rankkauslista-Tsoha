@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
-from application.tour.models import Tournament
+from application.tour.models import Tournament, Players
 from application.tour.forms import TournamentForm
 
 # MOVED TO INDEX
@@ -19,6 +19,7 @@ def tour_new():
 @app.route("/tournament/<string:id>")
 @login_required
 def tournament(id):
+
     return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id))
 
 @app.route("/tournament/<string:id>/edit")
@@ -32,7 +33,7 @@ def tour_create():
     form = TournamentForm(request.form)
 
     newT = Tournament(form.name.data, form.playercount.data)
-    
+    newT.account_id = current_user.id
     db.session().add(newT)
     db.session().commit()
 
@@ -43,11 +44,24 @@ def tour_create():
 def tour_edit(id):
     form = TournamentForm(request.form)
 
+    # if form.delete.data == True delete the tournament
+
     T = Tournament.query.get(id)
 
     T.name = form.name.data
     T.playercount = form.playercount.data # this line maybe never even happening
 
+    db.session().commit()
+
+    return redirect(url_for('tournament', id=id))  
+
+@app.route("/tournament/<string:id>/join", methods=["POST"])
+@login_required
+def tour_join(id):
+
+    newP = Players(current_user.id, id)
+
+    db.session().add(newP)
     db.session().commit()
 
     return redirect(url_for('tournament', id=id))  

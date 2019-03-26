@@ -12,6 +12,8 @@ class User(db.Model):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    
+    tournaments = db.relationship('Tournament', backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name
