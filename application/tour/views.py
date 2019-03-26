@@ -44,16 +44,25 @@ def tour_create():
 def tour_edit(id):
     form = TournamentForm(request.form)
 
-    # if form.delete.data == True delete the tournament
-
-    T = Tournament.query.get(id)
-
-    T.name = form.name.data
-    T.playercount = form.playercount.data # this line maybe never even happening
-
+    editT = Tournament.query.get(id)
+    
+    editT.name = form.name.data
+    editT.playercount = form.playercount.data #this just doesn't work!!
+    
     db.session().commit()
 
     return redirect(url_for('tournament', id=id))  
+
+@app.route("/tournament/<string:id>/delete", methods=["POST"])
+@login_required
+def tour_delete(id):
+
+    T = Tournament.query.get(id)
+
+    db.session.delete(T) 
+    db.session().commit()
+
+    return redirect(url_for("index")) 
 
 @app.route("/tournament/<string:id>/join", methods=["POST"])
 @login_required

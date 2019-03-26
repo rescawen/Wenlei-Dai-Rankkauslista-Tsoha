@@ -7,7 +7,8 @@ class Players(object):
     def __init__(self, account_id, tournament_id):
         self.account_id = account_id
         self.tournament_id = tournament_id
-
+        
+    @staticmethod
     def find_tour_with_user(user_id):
         stmt = text("SELECT tournament_id FROM players "
                     "WHERE account_id = account_id").params(account_id=user_id)
