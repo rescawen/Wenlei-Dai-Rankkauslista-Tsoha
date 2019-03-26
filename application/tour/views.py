@@ -47,8 +47,8 @@ def tour_edit(id):
     editT = Tournament.query.get(id)
     
     editT.name = form.name.data
-    editT.playercount = form.playercount.data #this just doesn't work!!
-    
+    editT.player_count = form.playercount.data 
+
     db.session().commit()
 
     return redirect(url_for('tournament', id=id))  
