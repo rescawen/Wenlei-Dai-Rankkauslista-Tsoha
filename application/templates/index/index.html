@@ -23,7 +23,6 @@
 <h3>All Tournaments</h3>
 
 
-
 {% for tournament in tournaments %}
 <tr>
       <td><a href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a></td>
