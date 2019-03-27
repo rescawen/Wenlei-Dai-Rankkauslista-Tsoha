@@ -9,8 +9,6 @@ from application.tour.models import Tournament, Players
 def index():
     if current_user.is_authenticated:
 
-        # print('SSSSSSSSSSSSSSSs',Players.find_tour_with_user(current_user.id))
-
         joinedid = Players.find_tour_with_user(current_user.id)
         joined = []
         for id in joinedid:

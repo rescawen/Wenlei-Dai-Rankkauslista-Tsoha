@@ -5,6 +5,8 @@ from application import app, db
 from application.tour.models import Tournament, Players
 from application.tour.forms import TournamentForm
 
+from application.auth.models import User
+
 # MOVED TO INDEX
 # @app.route("/", methods=["GET"])
 # def tour_index():
@@ -20,7 +22,12 @@ def tour_new():
 @login_required
 def tournament(id):
 
-    return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id))
+    playersid = Players.find_users_of_tour(id)
+    players = []
+    for id in playersid:
+        players.append(User.query.get(id)) # should only get users non sensitive information
+
+    return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
 @app.route("/tournament/<string:id>/edit")
 @login_required

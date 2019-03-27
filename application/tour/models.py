@@ -9,20 +9,36 @@ class Players(object):
         self.tournament_id = tournament_id
         
     @staticmethod
-    def find_tour_with_user(user_id):
-        stmt = text("SELECT tournament_id FROM players "
-                    "WHERE account_id = account_id").params(account_id=user_id)
+    def find_tour_with_user(account_id):
+        stmt = text("SELECT tournament_id FROM players"
+                   " WHERE account_id = :account_id").params(account_id=account_id)
 
         response = db.engine.execute(stmt)
 
-        print('AAAAAAAAAAAAAAAAAA', response)
-
         userstournaments = []
         for row in response:
-            
-            userstournaments.append(row[0])
 
+            
+
+            userstournaments.append(row[0])
+            print('CURRENT SITUATION OF THE LIST', userstournaments)
+
+        
         return userstournaments
+
+    @staticmethod
+    def find_users_of_tour(tournament_id):
+        stmt = text("SELECT account_id FROM players"
+                   " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
+
+        response = db.engine.execute(stmt)
+
+        tournamentplayers = []
+        for row in response:
+            
+            tournamentplayers.append(row[0])
+
+        return tournamentplayers
 
 players = db.Table('players',
     db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True),

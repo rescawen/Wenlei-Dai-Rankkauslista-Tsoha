@@ -9,6 +9,13 @@
 <br/>
 <br/>
 
+{% for player in tournamentplayers %}
+<tr>
+      <td>{{ player.username }}</td>
+      <br/>
+</tr>
+{% endfor %}
+
 <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
     <input type="submit" value="Join this tournament!" />
   </form>
