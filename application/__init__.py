@@ -12,7 +12,6 @@ else:
     app.config["SQLALCHEMY_ECHO"] = True
 
 
-  
 db = SQLAlchemy(app)
   
 from application.index import views
