@@ -22,6 +22,8 @@ from application.auth import views
 from application.tour import models
 from application.tour import views
 
+from application.match import models
+
 # kirjautuminen
 from application.auth.models import User
 from os import urandom

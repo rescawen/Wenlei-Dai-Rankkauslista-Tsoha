@@ -5,6 +5,8 @@ from application import app, db
 from application.tour.models import Tournament, Players
 from application.tour.forms import TournamentForm
 
+from application.match.models import Match
+
 from application.auth.models import User
 
 # MOVED TO INDEX
@@ -24,8 +26,8 @@ def tournament(id):
 
     playersid = Players.find_users_of_tour(id)
     players = []
-    for id in playersid:
-        players.append(User.query.get(id)) # should only get users non sensitive information
+    for x in playersid:
+        players.append(User.query.get(x)) # should only get users non sensitive information
 
     return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
@@ -81,3 +83,36 @@ def tour_join(id):
     db.session().commit()
 
     return redirect(url_for('tournament', id=id))  
+
+@app.route("/tournament/<string:id>/start", methods=["POST"])
+@login_required
+def tour_start(id):
+
+    players = Players.find_users_of_tour(id) # might need to do this again, can be passed through tournament page
+
+    minimum_player_count = 2
+
+    bracket_size = 0
+
+    print('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLlength of players',len(players))
+
+    while True:
+
+        print('stuck')
+
+        if len(players) <= minimum_player_count:
+
+            bracket_size = minimum_player_count
+            break
+
+        else:
+
+            minimum_player_count = minimum_player_count * 2
+
+    for i in range(bracket_size-1):
+        newM = Match(id, i+1)
+        db.session().add(newM)
+        db.session().commit()
+
+    return redirect(url_for('tournament', id=id))  
+

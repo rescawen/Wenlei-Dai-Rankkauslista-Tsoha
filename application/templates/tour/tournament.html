@@ -1,21 +1,27 @@
 <h1>{{ tournament.name }}</h1>
+<h1>{{ tournament.id }}</h1>
 
 {% if current_user.id == tournament.account_id %}
 
 <a href="{{ url_for('tour_edit_page', id=tournament.id) }}">edit this tournament</a>
 
+<form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
+      <input type="submit" value="Start this tournament!" />
+</form>
+
 {% endif %}
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
 
 {% for player in tournamentplayers %}
 <tr>
       <td>{{ player.username }}</td>
-      <br/>
+      <br />
 </tr>
 {% endfor %}
 
 <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
-    <input type="submit" value="Join this tournament!" />
-  </form>
+      <input type="submit" value="Join this tournament!" />
+</form>
+
