@@ -36,6 +36,20 @@ class Players(object):
             tournamentplayers.append(User.query.get(row[0])) # should only get users non sensitive information
 
         return tournamentplayers
+    
+    @staticmethod
+    def find_user_id_of_tour(tournament_id):
+        stmt = text("SELECT account_id FROM players"
+                   " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
+
+        response = db.engine.execute(stmt)
+
+        tournamentplayers = []
+
+        for row in response:
+            tournamentplayers.append(row[0]) # should only get users non sensitive information
+
+        return tournamentplayers
 
 players = db.Table('players',
     db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True),

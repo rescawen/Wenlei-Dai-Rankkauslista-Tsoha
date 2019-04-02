@@ -26,8 +26,16 @@ def tournament(id):
     players = Players.find_users_of_tour(id)
 
     if Tournament.query.get(id).started == True:
-        tournamentmatches = Match.query.filter_by(tournament_id=id)
-        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tournamentmatches)
+        tm = Match.query.filter_by(tournament_id=id)
+
+        for player in players:
+            for m in tm:
+                if player.id == m.player1_id:
+                    m.player1_name = player.name
+                elif player.id == m.player2_id:
+                    m.player2_name = player.name
+
+        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm)
     else:
         return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
@@ -87,7 +95,7 @@ def tour_join(id):
 @login_required
 def tour_start(id):
 
-    players = Players.find_users_of_tour(id) # might need to do this again, can be passed through tournament page
+    players = Players.find_user_id_of_tour(id) # might need to do this again, can be passed through tournament page
     minimum_player_count = 2
     bracket_size = 0
 
