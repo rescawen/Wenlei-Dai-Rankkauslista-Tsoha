@@ -23,11 +23,7 @@ def tour_new():
 @app.route("/tournament/<string:id>")
 @login_required
 def tournament(id):
-
-    playersid = Players.find_users_of_tour(id)
-    players = []
-    for x in playersid:
-        players.append(User.query.get(x)) # should only get users non sensitive information
+    players = Players.find_users_of_tour(id)
 
     if Tournament.query.get(id).started == True:
         tournamentmatches = Match.query.filter_by(tournament_id=id)

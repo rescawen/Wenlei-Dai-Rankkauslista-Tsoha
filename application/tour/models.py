@@ -1,4 +1,5 @@
 from application import db
+from application.auth.models import User
 
 from sqlalchemy.sql import text
 
@@ -16,8 +17,10 @@ class Players(object):
         response = db.engine.execute(stmt)
 
         userstournaments = []
+
         for row in response:
-            userstournaments.append(row[0])
+            userstournaments.append(Tournament.query.get(row[0]))
+
         return userstournaments
 
     @staticmethod
@@ -28,8 +31,10 @@ class Players(object):
         response = db.engine.execute(stmt)
 
         tournamentplayers = []
+
         for row in response:
-            tournamentplayers.append(row[0])
+            tournamentplayers.append(User.query.get(row[0])) # should only get users non sensitive information
+
         return tournamentplayers
 
 players = db.Table('players',
