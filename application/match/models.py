@@ -21,11 +21,11 @@ class Match(db.Model):
     
     # players = db.relationship('User', secondary=players, backref=db.backref('tournaments', lazy=True))
 
-    def __init__(self, tournament_id, match_id):
+    def __init__(self, tournament_id, match_id, player1_id, player2_id):
         self.tournament_id = tournament_id
         self.match_id = match_id
-        self.player1_id = 0
-        self.player2_id = 0
+        self.player1_id = player1_id
+        self.player2_id = player2_id
         self.player1_score = 0
         self.player2_score = 0
         self.winner_id = 0
@@ -47,4 +47,6 @@ class Match(db.Model):
                             " AND tournament_id = :tournament_id").params(match_id=match_id, tournament_id=tournament_id)
 
                 #INSERT WINNER ID WE JUST QUERIED INTO MATCHID DIVIDED BY TWO ROUNDED DOWN AS PLAYER 2
+
+    # WE SHOULD ADD ANOTHER METHOD THAT USES THIS WINNER METHOD TO AUTOMATICALLY PUSH MATCHES THAT DON'T HAVE OPPONENTS ON THE FIRST ROUND FORWARD
 

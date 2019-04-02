@@ -17,13 +17,7 @@ class Players(object):
 
         userstournaments = []
         for row in response:
-
-            
-
             userstournaments.append(row[0])
-            print('CURRENT SITUATION OF THE LIST', userstournaments)
-
-        
         return userstournaments
 
     @staticmethod
@@ -35,9 +29,7 @@ class Players(object):
 
         tournamentplayers = []
         for row in response:
-            
             tournamentplayers.append(row[0])
-
         return tournamentplayers
 
 players = db.Table('players',
@@ -58,16 +50,19 @@ class Tournament(db.Model):
 
     name = db.Column(db.String(144), nullable=False)
     player_count = db.Column(db.Integer, nullable=False)
-    
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-    
+    started = db.Column(db.Boolean, nullable=False)
+
     # players = db.relationship('User', secondary=players, backref=db.backref('tournaments', lazy=True))
 
-    def __init__(self, name, playercount):
+    def __init__(self, name, playercount, account_id):
         self.name = name
         self.player_count = playercount
+        self.account_id = account_id
+        self.started = False
 
-
+    def is_started(self):
+        return self.started
 
 
 

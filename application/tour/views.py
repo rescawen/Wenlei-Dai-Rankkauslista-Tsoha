@@ -29,7 +29,11 @@ def tournament(id):
     for x in playersid:
         players.append(User.query.get(x)) # should only get users non sensitive information
 
-    return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
+    if Tournament.query.get(id).started == True:
+        tournamentmatches = Match.query.filter_by(tournament_id=id)
+        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tournamentmatches)
+    else:
+        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
 @app.route("/tournament/<string:id>/edit")
 @login_required
@@ -41,8 +45,7 @@ def tour_edit_page(id):
 def tour_create():
     form = TournamentForm(request.form)
 
-    newT = Tournament(form.name.data, form.playercount.data)
-    newT.account_id = current_user.id
+    newT = Tournament(form.name.data, form.playercount.data, current_user.id)
     db.session().add(newT)
     db.session().commit()
 
@@ -89,30 +92,37 @@ def tour_join(id):
 def tour_start(id):
 
     players = Players.find_users_of_tour(id) # might need to do this again, can be passed through tournament page
-
     minimum_player_count = 2
-
     bracket_size = 0
 
-    print('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLlength of players',len(players))
-
     while True:
-
         print('stuck')
-
         if len(players) <= minimum_player_count:
-
             bracket_size = minimum_player_count
             break
-
         else:
-
             minimum_player_count = minimum_player_count * 2
 
+    player1_list = players[:bracket_size//2]
+    player2_list = players[bracket_size//2:]
+
     for i in range(bracket_size-1):
-        newM = Match(id, i+1)
+
+        if i > (bracket_size/2)-2: # why is this -2 ??????
+
+            if not player2_list:
+                newM = Match(id, i+1, player1_list.pop(), 0)
+            else:
+                newM = Match(id, i+1, player1_list.pop(), player2_list.pop())
+        else:
+            newM = Match(id, i+1, 0, 0)
+
         db.session().add(newM)
         db.session().commit()
+
+    startT = Tournament.query.get(id)
+    startT.started = True
+    db.session().commit()
 
     return redirect(url_for('tournament', id=id))  
 
