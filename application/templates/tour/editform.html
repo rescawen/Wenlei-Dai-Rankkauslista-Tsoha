@@ -1,3 +1,8 @@
+{% extends "/index/layout.html" %}
+
+{% block body %}
+{{ error }}
+
 <form method="POST" action="{{ url_for('tour_edit', id=tournament.id) }}">
     <table>
         <tr>
@@ -7,6 +12,13 @@
             <td>
                 {{ form.name }}
             </td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
         </tr>
         <tr>
             <td>
@@ -14,6 +26,13 @@
             </td>
             <td>
                 {{ form.playercount }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.playercount.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </td>
         </tr>
         <tr>
@@ -23,11 +42,9 @@
         </tr>
 </form>
 
-<br/>
-
 <!-- some html problem this button is above the form ????????? -->
 
 <form method="POST" action="{{ url_for('tour_delete', id=tournament.id) }}">
     <input type="submit" value="Delete this tournament" />
-  </form>
-
+</form>
+{% endblock %}

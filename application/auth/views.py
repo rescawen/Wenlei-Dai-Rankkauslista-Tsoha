@@ -8,7 +8,9 @@ from application.auth.forms import LoginForm, RegistrationForm
 @app.route("/", methods = ["POST"])
 def auth_login():
     form = LoginForm(request.form)
-    # mahdolliset validoinnit
+    
+    if not form.validate():
+        return render_template("index/index.html", form = form)
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
@@ -30,6 +32,9 @@ def auth_new():
 @app.route("/auth/create", methods=["POST"])
 def auth_create():
     form = RegistrationForm(request.form)
+
+    if not form.validate():
+        return render_template("auth/createform.html", form = form)
 
     newUser = User(form.name.data, form.username.data, form.password.data)
     

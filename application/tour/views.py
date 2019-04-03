@@ -7,19 +7,6 @@ from application.tour.forms import TournamentForm
 
 from application.match.models import Match
 
-from application.auth.models import User
-
-# MOVED TO INDEX
-# @app.route("/", methods=["GET"])
-# def tour_index():
-#     return render_template("index/index.html", tournaments = Tournament.query.all())
-
-  
-@app.route("/tour/new/")
-@login_required
-def tour_new():
-    return render_template("tour/createform.html", form = TournamentForm())
-
 @app.route("/tournament/<string:id>")
 @login_required
 def tournament(id):
@@ -39,15 +26,18 @@ def tournament(id):
     else:
         return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
-@app.route("/tournament/<string:id>/edit")
+@app.route("/tour/new/")
 @login_required
-def tour_edit_page(id):
-    return render_template("tour/editform.html", id=id, tournament = Tournament.query.get(id), form = TournamentForm())
+def tour_new():
+    return render_template("tour/createform.html", form = TournamentForm())
 
 @app.route("/tour/create", methods=["POST"])
 @login_required
 def tour_create():
     form = TournamentForm(request.form)
+
+    if not form.validate():
+        return render_template("tour/createform.html", form = form)
 
     newT = Tournament(form.name.data, form.playercount.data, current_user.id)
     db.session().add(newT)
@@ -55,10 +45,18 @@ def tour_create():
 
     return redirect(url_for("index"))  
 
+@app.route("/tournament/<string:id>/edit")
+@login_required
+def tour_edit_page(id):
+    return render_template("tour/editform.html", id=id, tournament = Tournament.query.get(id), form = TournamentForm())
+
 @app.route("/tournament/<string:id>/edit", methods=["POST"])
 @login_required
 def tour_edit(id):
     form = TournamentForm(request.form)
+
+    if not form.validate():
+        return render_template("tour/editform.html", id=id, tournament = Tournament.query.get(id), form = form)
 
     editT = Tournament.query.get(id)
     

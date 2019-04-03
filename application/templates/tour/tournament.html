@@ -1,6 +1,9 @@
-<h1>{{ tournament.name }}</h1>
-<h1>{{ tournament.id }}</h1>
+{% extends "/index/layout.html" %}
 
+{% block body %}
+{{ error }}
+
+<h1>{{ tournament.name }}</h1>
 
 {% if current_user.id == tournament.account_id and tournament.started == False %}
 
@@ -20,10 +23,10 @@
 
 {% for match in matches %}
 <tr>
-      <td>{{ match.id }}</td>
-      <td>{{ match.player1_id }}</td>
+      <td>match {{ match.id }}:</td>
+      
       <td>{{ match.player1_name }}</td>
-      <td>{{ match.player2_id }}</td>
+      
       <td>{{ match.player2_name }}</td>
       <br />
 </tr>
@@ -45,3 +48,4 @@
 </form>
 
 {% endif %}
+{% endblock %}
