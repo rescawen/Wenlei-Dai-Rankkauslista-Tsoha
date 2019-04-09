@@ -23,6 +23,7 @@ from application.tour import models
 from application.tour import views
 
 from application.match import models
+from application.match import views
 
 # kirjautuminen
 from application.auth.models import User

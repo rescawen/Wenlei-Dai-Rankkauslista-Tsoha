@@ -6,6 +6,7 @@ from application.tour.models import Tournament, Players
 from application.tour.forms import TournamentForm
 
 from application.match.models import Match
+from application.match.forms import MatchForm
 
 @app.route("/tournament/<string:id>")
 @login_required
@@ -22,7 +23,7 @@ def tournament(id):
                 elif player.id == m.player2_id:
                     m.player2_name = player.name
 
-        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm)
+        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm())
     else:
         return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
@@ -93,7 +94,7 @@ def tour_join(id):
 @login_required
 def tour_start(id):
 
-    players = Players.find_user_id_of_tour(id) # might need to do this again, can be passed through tournament page
+    players = Players.find_user_id_of_tour(id)
     minimum_player_count = 2
     bracket_size = 0
 
@@ -127,4 +128,6 @@ def tour_start(id):
     db.session().commit()
 
     return redirect(url_for('tournament', id=id))  
+
+
 

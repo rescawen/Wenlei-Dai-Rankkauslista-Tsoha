@@ -17,24 +17,79 @@
       <hr class="my-4">
 
       {% if tournament.started == True %}
+      <div class="bracket">
+            {% for match in matches %}
+            <tr>
+                  <td>match {{ match.match_id }}:</td>
 
-      {% for match in matches %}
-      <tr>
-            <td>match {{ match.id }}:</td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ match.match_id }}">
+                        <td>{{ match.player1_name }}</td> vs
+                        <td>{{ match.player2_name }}</td>
+                  </button>
 
-            <td>{{ match.player1_name }}</td>
+                  <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                    <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLongTitle">Match Result for
+                                                {{ match.player1_name }} vs {{ match.player2_name }}
+                                          </h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                          </button>
+                                    </div>
+                                    <form method="POST"
+                                          action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id, match_id=match.match_id) }}">
+                                          <div class="modal-body">
 
-            <td>{{ match.player2_name }}</td>
-            <br />
-      </tr>
-      {% endfor %}
-
+                                                <div class="row">
+                                                      <div class="col">
+                                                            <div class="form-check">
+                                                                  <input class="form-check-input" type="radio"
+                                                                        name="player_victory" id="player_victory1"
+                                                                        value="option1" checked>
+                                                                  <label class="form-check-label"
+                                                                        for="player_victory1">winner
+                                                                  </label>
+                                                            </div>
+                                                            </br>
+                                                            <p><b>{{ match.player1_name }}</b> score</p>
+                                                            {{ form.player1_score }}
+                                                      </div>
+                                                      <div class="col">
+                                                            <div class="form-check">
+                                                                  <input class="form-check-input" type="radio"
+                                                                        name="player_victory" id="player_victory2"
+                                                                        value="option2" checked>
+                                                                  <label class="form-check-label"
+                                                                        for="player_victory2">winner
+                                                                  </label>
+                                                            </div>
+                                                            </br>
+                                                            <p><b>{{ match.player2_name }}</b> score</p>
+                                                            {{ form.player2_score }}
+                                                      </div>
+                                                </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Submit Scores</button>
+                                          </div>
+                                    </form>
+                              </div>
+                        </div>
+                  </div>
+                  <br />
+                  <br />
+            </tr>
+            {% endfor %}
+      </div>
       {% endif %}
 
       <div class="d-flex flex-row bd-highlight mb-3">
-      {% for player in tournamentplayers %}
-      <div class="p-2 bd-highlight">{{ player.username }}</div>
-      {% endfor %}
+            {% for player in tournamentplayers %}
+            <div class="p-2 bd-highlight">{{ player.username }}</div>
+            {% endfor %}
       </div>
 
       {% if tournament.started == False %}
