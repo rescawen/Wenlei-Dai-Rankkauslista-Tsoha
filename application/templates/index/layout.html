@@ -6,6 +6,12 @@
     <title>Tournament Bracket Application</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    .modal {
+        width: 300px;
+        margin: auto;
+    }
+    </style>    
 
 </head>
 
@@ -44,7 +50,19 @@
         Welcome to tournament brackets user {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Log out</a>
     </p>
     {% endif %} -->
-
+    <!-- {% macro render_field(field) %}
+    
+    <dd>{{ field(**kwargs)|safe }}
+        {% if field.errors %}
+        <ul class=errors>
+            {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </dd>
+    {% endmacro %} -->
+    
     {% block body %}
     <p>
         Content.
