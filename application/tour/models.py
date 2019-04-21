@@ -11,31 +11,41 @@ class Players(object):
         
     @staticmethod
     def find_tour_with_user(account_id):
-        stmt = text("SELECT tournament_id FROM players"
-                   " WHERE account_id = :account_id").params(account_id=account_id)
+
+        stmt = text("SELECT * FROM tournament"
+                     " LEFT JOIN players ON players.tournament_id = tournament.id"
+                     " WHERE (players.account_id = :account_id)").params(account_id=account_id)
+
+        # stmt = text("SELECT tournament_id FROM players"
+        #            " WHERE account_id = :account_id").params(account_id=account_id)
 
         response = db.engine.execute(stmt)
 
-        userstournaments = []
+        # userstournaments = []
 
-        for row in response:
-            userstournaments.append(Tournament.query.get(row[0]))
+        # for row in response:
+        #     userstournaments.append(Tournament.query.get(row[0]))
 
-        return userstournaments
+        return response
 
     @staticmethod
     def find_users_of_tour(tournament_id):
-        stmt = text("SELECT account_id FROM players"
-                   " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
+
+        stmt = text("SELECT * FROM account"
+                     " LEFT JOIN players ON players.account_id = account.id"
+                     " WHERE (players.tournament_id = :tournament_id)").params(tournament_id=tournament_id)
+
+        # stmt = text("SELECT account_id FROM players"
+        #            " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
 
         response = db.engine.execute(stmt)
 
-        tournamentplayers = []
+        # tournamentplayers = []
 
-        for row in response:
-            tournamentplayers.append(User.query.get(row[0])) # should only get users non sensitive information
+        # for row in response:
+        #     tournamentplayers.append(User.query.get(row[0])) # should only get users non sensitive information
 
-        return tournamentplayers
+        return response
     
     @staticmethod
     def find_user_id_of_tour(tournament_id):
