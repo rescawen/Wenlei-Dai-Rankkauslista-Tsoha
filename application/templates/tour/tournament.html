@@ -3,83 +3,135 @@
 {% block body %}
 {{ error }}
 
-<div class="jumbotron">
-      <h1 class="display-4">{{ tournament.name }}</h1>
-      {% if current_user.id == tournament.account_id and tournament.started == False %}
+<main>
+      <ul>
+            <li>&nbsp;</li>
 
-      <a href="{{ url_for('tour_edit_page', id=tournament.id) }}">edit this tournament</a>
+            <li class="game game-top winner">Lousville <span>79</span></li>
+            </br>
+            <button type="button" class="btn btn-primary" data-toggle="modal">report result</button>
+            <li>&nbsp;</li>
+            <li class="game game-bottom ">NC A&T <span>48</span></li>
 
-      <form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
-            <input type="submit" value="Start this tournament!" />
-      </form>
+            <li>&nbsp;</li>
 
-      {% endif %}
-      <hr class="my-4">
+            <li>&nbsp;</li>
 
-      {% if tournament.started == True %}
-      <div class="bracket">
-            {% for match in matches %}
-            <tr>
-                  <td>match {{ match.match_id }}:</td>
+            <li class="game game-top winner">Duke <span>73</span></li>
+            <li>&nbsp;</li>
+            <li class="game game-bottom ">Albany <span>61</span></li>
 
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ match.match_id }}">
-                        <td>{{ match.player1_name }}</td> vs
-                        <td>{{ match.player2_name }}</td>
-                  </button>
+            <li>&nbsp;</li>
+      </ul>
 
-                  <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                    <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLongTitle">Match Result
-                                          </h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                          </button>
-                                    </div>
-                                    <form method="POST"
-                                          action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id, match_id=match.match_id) }}">
-                                          <div class="modal-body">
-                                                <p><b>{{ match.player1_name }}</b> score</p>
-                                                {{ form.player1_score }}
-                                                <br />
-                                                <br />
-                                                {{ form.winner_boolean }}
-                                                <p><b>{{ match.player2_name }}</b> score</p>
-                                                {{ form.player2_score }}
-                                                <div id="playerids" style="display: none;">
-                                                      {{ form.player1_id(value=match.player1_id) }}
-                                                      {{ form.player2_id(value=match.player2_id) }}
+      <ul>
+            <li>&nbsp;</li>
+
+            <li class="game game-top winner">Lousville <span>85</span></li>
+            <li>&nbsp;</li>
+            <li class="game game-bottom ">Duke <span>63</span></li>
+
+            <li>&nbsp;</li>
+      </ul>
+
+
+
+      <div class="jumbotron">
+            <h1 class="display-4">{{ tournament.name }}</h1>
+            {% if current_user.id == tournament.account_id and tournament.started == False %}
+
+            <a href="{{ url_for('tour_edit_page', id=tournament.id) }}">edit this tournament</a>
+
+            <form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
+                  <input type="submit" value="Start this tournament!" />
+            </form>
+
+            {% endif %}
+            <hr class="my-4">
+
+            {% if tournament.started == True %}
+            <div class="bracket">
+                  
+                        {% for match in matches %}
+
+                        <ul>
+                        <!-- <tr> -->
+                              <li>&nbsp;</li>
+
+                              <li class="game game-top winner">{{ match.player1_name }} <span>{{ match.player1_score }}</span></li>
+                              </br>
+                              <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#{{ match.match_id }}">
+                                    report result
+                              </button>
+                              <li>&nbsp;</li>
+                              <li class="game game-bottom ">{{ match.player2_name }} <span>{{ match.player2_score }}</span></li>
+
+                              <li>&nbsp;</li>
+
+                              <!-- <td>match {{ match.match_id }}:</td> -->
+
+                              
+
+                              <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                                <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLongTitle">Match Result
+                                                      </h5>
+                                                      <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                      </button>
                                                 </div>
+                                                <form method="POST"
+                                                      action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id, match_id=match.match_id) }}">
+                                                      <div class="modal-body">
+                                                            <p><b>{{ match.player1_name }}</b> score</p>
+                                                            {{ form.player1_score }}
+                                                            <br />
+                                                            <br />
+                                                            {{ form.winner_boolean }}
+                                                            <p><b>{{ match.player2_name }}</b> score</p>
+                                                            {{ form.player2_score }}
+                                                            <div id="playerids" style="display: none;">
+                                                                  {{ form.player1_id(value=match.player1_id) }}
+                                                                  {{ form.player2_id(value=match.player2_id) }}
+                                                            </div>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Submit
+                                                                  Scores</button>
+                                                      </div>
+                                                </form>
                                           </div>
-                                          <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Submit Scores</button>
-                                          </div>
-                                    </form>
+                                    </div>
                               </div>
-                        </div>
-                  </div>
-                  <br />
-                  <br />
-            </tr>
-            {% endfor %}
+                              <br />
+                              <br />
+                        <!-- </tr> -->
+                  </ul>
+                        {% endfor %}
+                  
+            </div>
+            {% endif %}
+
+            <div class="d-flex flex-row bd-highlight mb-3">
+                  {% for player in tournamentplayers %}
+                  <div class="p-2 bd-highlight">{{ player.username }}</div>
+                  {% endfor %}
+            </div>
+
+            {% if tournament.started == False %}
+
+            <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
+                  <input type="submit" value="Join this tournament!" />
+            </form>
+
+            {% endif %}
+
       </div>
-      {% endif %}
 
-      <div class="d-flex flex-row bd-highlight mb-3">
-            {% for player in tournamentplayers %}
-            <div class="p-2 bd-highlight">{{ player.username }}</div>
-            {% endfor %}
-      </div>
-
-      {% if tournament.started == False %}
-
-      <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
-            <input type="submit" value="Join this tournament!" />
-      </form>
-
-      {% endif %}
-
-</div>
+</main>
 {% endblock %}

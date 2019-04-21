@@ -16,6 +16,11 @@ def tournament(id):
     if Tournament.query.get(id).started == True:
         tm = Match.query.filter_by(tournament_id=id)
 
+        # matchcount = 0
+        # for m in tm:
+        #     print('AAAAAAAAAAAAAAAAAAAA', m)
+        #     matchcount += 1
+
         for player in players:
             for m in tm:
                 if player.id == m.player1_id:

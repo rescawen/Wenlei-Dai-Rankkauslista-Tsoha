@@ -7,12 +7,58 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-    .modal {
-        width: 300px;
-        margin: auto;
-    }
-    </style>    
+        .modal {
+            width: 300px;
+            margin: auto;
+        }
 
+        main,
+        ul {
+            display: flex;
+        }
+
+        ul {
+            flex-direction: column;
+            width: 200px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .game+li {
+            flex-grow: 1;
+        }
+
+        li:first-child,
+        li:last-child {
+            flex-grow: .5;
+        }
+
+        .game {
+            padding-left: 20px;
+        }
+
+        .winner {
+            font-weight: bold;
+        }
+
+        .game span {
+            float: right;
+            margin-right: 5px;
+        }
+
+        .game-top {
+            border-bottom: 1px solid #aaa;
+        }
+
+        .game-top+li {
+            border-right: 1px solid #aaa;
+            min-height: 40px;
+        }
+
+        .game-bottom {
+            border-top: 1px solid #aaa;
+        }
+    </style>
 </head>
 
 <body>
@@ -62,7 +108,7 @@
         {% endif %}
     </dd>
     {% endmacro %} -->
-    
+
     {% block body %}
     <p>
         Content.
