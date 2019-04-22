@@ -54,6 +54,22 @@
         .game-top+li {
             border-right: 1px solid #aaa;
             min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-top+li .report-btn{
+            display: none;
+        }
+
+        .game-top+li:hover .report-btn{
+            display: inline-block;
+        }
+
+        .report-btn {
+            position: relative;
+            width: 150px;
         }
 
         .game-bottom {
