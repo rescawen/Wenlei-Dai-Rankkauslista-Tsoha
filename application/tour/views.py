@@ -13,12 +13,15 @@ from application.match.forms import MatchForm
 def tournament(id):
     players = Players.find_users_of_tour(id)
 
+    print("SSSSSSSSSSSSSSSSSSSSSSSSSS", players)
+
     if Tournament.query.get(id).started == True:
         tm = Match.query.filter_by(tournament_id=id)
 
         maximum_rounds = 1
 
         for player in players:
+            print("AAAAAAAAAAAAAAAAAAAAAAA", player)
             for m in tm:
 
                 if m.round_number > maximum_rounds:
