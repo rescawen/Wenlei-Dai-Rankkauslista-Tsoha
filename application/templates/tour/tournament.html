@@ -5,7 +5,6 @@
 
 <main>
       
-
       <!-- {% if current_user.id == tournament.account_id and tournament.started == False %}
 
       <a href="{{ url_for('tour_edit_page', id=tournament.id) }}">edit this tournament</a>
@@ -107,7 +106,7 @@
             {% endif %}
             <hr class="my-4">
 
-            <!-- {% if tournament.started == True %}
+            {% if tournament.started == True %}
             <div class="bracket">
 
                   {% for round in range(maximum_rounds, 0 , -1) %}
@@ -172,13 +171,14 @@
                   {% endfor %}
 
             </div>
-            {% endif %} -->
+            {% endif %}
 
-            <div class="d-flex flex-row bd-highlight mb-3">
+            
                   {% for player in tournamentplayers %}
-                  <div class="p-2 bd-highlight">{{ player.username }}</div>
+                  <div class="p-2 bd-highlight">{{ player.username }}</div> 
+
                   {% endfor %}
-            </div>
+            
 
             {% if tournament.started == False %}
 
