@@ -11,6 +11,7 @@ class Match(db.Model):
 
     tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'), nullable=False)
     match_id = db.Column(db.Integer, nullable=False)
+    round_number = db.Column(db.Integer, nullable=False)
     player1_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) # when creating all match elements instantly this
     player2_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) # is empty for vast majorit of elements
     player1_name = db.Column(db.String(144), nullable=False)
@@ -20,9 +21,10 @@ class Match(db.Model):
 
     winner_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) 
 
-    def __init__(self, tournament_id, match_id, player1_id, player2_id):
+    def __init__(self, tournament_id, match_id, round_number, player1_id, player2_id):
         self.tournament_id = tournament_id
         self.match_id = match_id
+        self.round_number = round_number
         self.player1_id = player1_id
         self.player2_id = player2_id
         self.player1_name = "Player 1"

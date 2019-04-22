@@ -16,19 +16,20 @@ def tournament(id):
     if Tournament.query.get(id).started == True:
         tm = Match.query.filter_by(tournament_id=id)
 
-        # matchcount = 0
-        # for m in tm:
-        #     print('AAAAAAAAAAAAAAAAAAAA', m)
-        #     matchcount += 1
+        maximum_rounds = 1
 
         for player in players:
             for m in tm:
+
+                if m.round_number > maximum_rounds:
+                    maximum_rounds = m.round_number
+
                 if player.id == m.player1_id:
                     m.player1_name = player.name
                 elif player.id == m.player2_id:
                     m.player2_name = player.name
 
-        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm())
+        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm(), maximum_rounds = maximum_rounds)
     else:
         return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
@@ -102,6 +103,9 @@ def tour_start(id):
     players = Players.find_user_id_of_tour(id)
     minimum_player_count = 2
     bracket_size = 0
+    round_number = 1
+    round_counter = 1
+    round_multiplier = 2
 
     while True:
         print('stuck')
@@ -119,14 +123,19 @@ def tour_start(id):
         if i > (bracket_size/2)-2: # why is this -2 ??????
 
             if not player2_list:
-                newM = Match(id, i+1, player1_list.pop(), 0)
+                newM = Match(id, i+1, round_number, player1_list.pop(), 0)
             else:
-                newM = Match(id, i+1, player1_list.pop(), player2_list.pop())
+                newM = Match(id, i+1, round_number, player1_list.pop(), player2_list.pop())
         else:
-            newM = Match(id, i+1, 0, 0)
+            newM = Match(id, i+1, round_number, 0, 0)
 
         db.session().add(newM)
         db.session().commit()
+
+        if i+1 == round_counter:
+            round_counter = round_counter + round_multiplier
+            round_number += 1
+            round_multiplier = round_multiplier * 2
 
     startT = Tournament.query.get(id)
     startT.started = True
