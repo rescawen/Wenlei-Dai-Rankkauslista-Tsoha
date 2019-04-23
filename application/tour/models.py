@@ -61,6 +61,14 @@ class Players(object):
 
         return tournamentplayers
 
+    @staticmethod
+    def delete_rows_with_tour(tournament_id):
+        stmt = text("DELETE FROM players"
+                    " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
+        
+        db.engine.execute(stmt)
+
+
 players = db.Table('players',
     db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True),
     db.Column('tournament_id', db.Integer, db.ForeignKey('tournament.id'), primary_key=True)

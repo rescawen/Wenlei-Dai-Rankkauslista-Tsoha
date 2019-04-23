@@ -78,7 +78,11 @@ def tour_edit(id):
 @login_required
 def tour_delete(id):
 
+    Players.delete_rows_with_tour(id)
+
     T = Tournament.query.get(id)
+
+
 
     db.session.delete(T) 
     db.session().commit()

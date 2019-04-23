@@ -31,3 +31,6 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
+
+    def roles(self): # kaikilla on nyt admin, todellisuudessa tietokantaan.
+        return ["ADMIN"]
