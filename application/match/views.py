@@ -18,14 +18,14 @@ def match_submit(id, tournament_id, match_id):
 
     editM.player1_score = form.player1_score.data
     editM.player2_score = form.player2_score.data
-    
-    if form.winner_boolean == 'player1':
+
+    if form.winner_boolean.data == 'player1':
         editM.winner_id = form.player1_id.data
-    else:
+        Match.winner(form.player1_id.data, tournament_id, match_id)
+    elif form.winner_boolean.data == 'player2':
         editM.winner_id = form.player2_id.data
+        Match.winner(form.player2_id.data, tournament_id, match_id)
 
     db.session().commit()
-
-    # call Match.Winner() where we move the winner of the match to the next match
 
     return redirect(url_for('tournament', id=tournament_id))  

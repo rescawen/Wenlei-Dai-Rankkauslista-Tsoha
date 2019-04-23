@@ -1,5 +1,7 @@
 from application import db
 
+from sqlalchemy.sql import text
+
 class Match(db.Model):
 
     __tablename__ = "match"
@@ -35,21 +37,30 @@ class Match(db.Model):
 
     @staticmethod
     # whenever we select a winner for the match, this is the function we trigger
-    def winner():
-        if self.match_id != 1:
-            if self.match_id % 2 == 0:
-                stmt = text("SELECT winner_id FROM match"
+    def winner(player_id, tournament_id, match_id):
+        if match_id != 1:
+            if int(match_id) % 2 == 0:
+                
+                new_match_id = int(match_id)/2
+
+                stmt = text("UPDATE match"
+                            " SET player1_id = :player1_id"
                             " WHERE match_id = :match_id"
-                            " AND tournament_id = :tournament_id").params(match_id=match_id, tournament_id=tournament_id)
+                            " AND tournament_id = :tournament_id").params(player1_id = player_id, tournament_id=tournament_id, match_id=new_match_id)
                 
                 #INSERT WINNER ID WE JUST QUERIED INTO MATCHID DIVIDED BY TWO AS PLAYER 1
 
             else: 
-                stmt = text("SELECT winner_id FROM match"
+                new_match_id = int(match_id)//2 
+
+                stmt = text("UPDATE match"
+                            " SET player2_id = :player2_id"
                             " WHERE match_id = :match_id"
-                            " AND tournament_id = :tournament_id").params(match_id=match_id, tournament_id=tournament_id)
+                            " AND tournament_id = :tournament_id").params(player2_id = player_id, tournament_id=tournament_id, match_id=new_match_id)
 
                 #INSERT WINNER ID WE JUST QUERIED INTO MATCHID DIVIDED BY TWO ROUNDED DOWN AS PLAYER 2
+
+            db.engine.execute(stmt)
 
     # WE SHOULD ADD ANOTHER METHOD THAT USES THIS WINNER METHOD TO AUTOMATICALLY PUSH MATCHES THAT DON'T HAVE OPPONENTS ON THE FIRST ROUND FORWARD
 
