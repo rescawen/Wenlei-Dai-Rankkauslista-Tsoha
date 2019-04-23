@@ -89,6 +89,12 @@ def tour_delete(id):
 @login_required
 def tour_join(id):
 
+    players = Players.find_user_id_of_tour(id)
+
+    for player in players:
+        if player == current_user.id:
+            return redirect(url_for('tournament', id=id, error='You have already signed up for the tournament'))
+
     newP = Players(current_user.id, id)
 
     db.session().add(newP)
@@ -100,7 +106,13 @@ def tour_join(id):
 @login_required
 def tour_start(id):
 
+    #validation if play
+
     players = Players.find_user_id_of_tour(id)
+
+    if len(players) == 0:
+        return redirect(url_for('tournament', id=id, error='You must have at least one player to start a tournament')) 
+
     minimum_player_count = 2
     bracket_size = 0
     round_number = 1

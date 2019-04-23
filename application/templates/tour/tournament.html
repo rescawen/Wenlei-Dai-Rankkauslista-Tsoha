@@ -4,8 +4,6 @@
 {{ error }}
 
 <main>
-      
-
 
       <div class="jumbotron">
             <h1 class="display-4">{{ tournament.name }}</h1>
@@ -33,11 +31,12 @@
 
                         <li class="game game-top ">{{ match.player1_name }} <span>{{ match.player1_score }}</span></li>
 
-                        <li>&nbsp;
-                        <button type="button" class="btn btn-primary report-btn" data-toggle="modal"
+                        <li>&nbsp;  
+                              <!-- super user or admin can always change and report result, average user can only report own match result -->
+                              <button type="button" class="btn btn-primary report-btn" data-toggle="modal"
                                     data-target="#{{ match.match_id }}">
                                     report result
-                        </button>
+                              </button>
                         </li>
 
                         <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
@@ -89,21 +88,25 @@
 
             </div>
             {% endif %}
-
-            
-                  {% for player in tournamentplayers %}
-                  <div class="p-2 bd-highlight">{{ player.username }}</div> 
-
-                  {% endfor %}
             
 
             {% if tournament.started == False %}
+            
 
             <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
                   <input type="submit" value="Join this tournament!" />
             </form>
 
+            <br />
+            
+            <p>Current list of players who have signed up:</p>
             {% endif %}
+
+            <ol>
+            {% for player in tournamentplayers %}
+            <li>{{ player.username }}</li>
+            {% endfor %}
+            </ol>
 
       </div>
 
