@@ -82,8 +82,6 @@ def tour_delete(id):
 
     T = Tournament.query.get(id)
 
-
-
     db.session.delete(T) 
     db.session().commit()
 
@@ -139,11 +137,11 @@ def tour_start(id):
         if i > (bracket_size/2)-2: # why is this -2 ??????
 
             if not player2_list:
-                newM = Match(id, i+1, round_number, player1_list.pop(), 0)
+                newM = Match(id, i+1, round_number, player1_list.pop(), None)
             else:
                 newM = Match(id, i+1, round_number, player1_list.pop(), player2_list.pop())
         else:
-            newM = Match(id, i+1, round_number, 0, 0)
+            newM = Match(id, i+1, round_number, None, None)
 
         db.session().add(newM)
         db.session().commit()

@@ -14,14 +14,14 @@ class Match(db.Model):
     tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'), nullable=False)
     match_id = db.Column(db.Integer, nullable=False)
     round_number = db.Column(db.Integer, nullable=False)
-    player1_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) # when creating all match elements instantly this
-    player2_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) # is empty for vast majorit of elements
+    player1_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # when creating all match elements instantly this
+    player2_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # is empty for vast majorit of elements
     player1_name = db.Column(db.String(144), nullable=False)
     player2_name = db.Column(db.String(144), nullable=False)
     player1_score = db.Column(db.Integer, nullable=False)
     player2_score = db.Column(db.Integer, nullable=False)
 
-    winner_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False) 
+    winner_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) 
 
     def __init__(self, tournament_id, match_id, round_number, player1_id, player2_id):
         self.tournament_id = tournament_id
@@ -33,7 +33,7 @@ class Match(db.Model):
         self.player2_name = "Player 2"
         self.player1_score = 0
         self.player2_score = 0
-        self.winner_id = 0
+        self.winner_id = None
 
     @staticmethod
     # whenever we select a winner for the match, this is the function we trigger
