@@ -29,7 +29,7 @@
 
                         <li>&nbsp;</li>
 
-                        <li class="game game-top ">{{ match.match_id }}{{ match.player1_name }} <span>{{ match.player1_score }}</span></li>
+                        <li class="game game-top ">match_id : {{ match.match_id }} <b>{{ match.player1_name }}</b><span>{{ match.player1_score }}</span></li>
 
                         <li>&nbsp;  
                               <!-- super user or admin can always change and report result, average user can only report own match result -->
@@ -74,7 +74,7 @@
                                     </div>
                               </div>
                         </div>
-                        <li class="game game-bottom ">{{ match.player2_name }} <span>{{ match.player2_score }}</span>
+                        <li class="game game-bottom "><b>{{ match.player2_name }}</b> <span>{{ match.player2_score }}</span>
                         </li>
 
                         <li>&nbsp;</li>
