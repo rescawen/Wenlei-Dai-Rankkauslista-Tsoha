@@ -15,9 +15,7 @@ def tournament(id):
 
     if Tournament.query.get(id).started == True:
         tm = Match.query.filter_by(tournament_id=id).order_by('match_id')
-        # tm = Match.select_matches_asc_by_tournament_id(id) # to solve problem on heroku, we need to make sure that the matches are in ascending order
-
-    
+        
         maximum_rounds = 1
 
         for player in players:

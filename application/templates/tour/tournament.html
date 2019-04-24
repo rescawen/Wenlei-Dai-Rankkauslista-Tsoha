@@ -4,11 +4,6 @@
 {{ error }}
 
 <main>
-
-            {% for match in matches %}
-            {{ match.match_id }}
-            {% endfor %}
-
       <div class="jumbotron">
             <h1 class="display-4">{{ tournament.name }}</h1>
             {% if current_user.id == tournament.account_id and tournament.started == False %}
@@ -29,12 +24,11 @@
 
                   <ul>
                         {% for match in matches %}
-                        {{ match.match_id }}
                         {% if match.round_number == round %}
 
                         <li>&nbsp;</li>
 
-                        <li class="game game-top ">match_id : {{ match.match_id }} <b>{{ match.player1_name }}</b><span>{{ match.player1_score }}</span></li>
+                        <li class="game game-top "><b>{{ match.player1_name }}</b><span>{{ match.player1_score }}</span></li>
 
                         <li>&nbsp;  
                               <!-- super user or admin can always change and report result, average user can only report own match result -->
