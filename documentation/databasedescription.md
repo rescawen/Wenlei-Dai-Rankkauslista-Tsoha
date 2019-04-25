@@ -1,4 +1,6 @@
-# Database Diagram
+# Database Description
+
+Original database plans before starting the project.
 
 ##### User table
 
