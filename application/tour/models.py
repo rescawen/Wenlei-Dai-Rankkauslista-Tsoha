@@ -11,7 +11,6 @@ class Players(object):
         
     @staticmethod
     def find_tour_with_user(account_id):
-
         stmt = text("SELECT * FROM tournament"
                      " LEFT JOIN players ON players.tournament_id = tournament.id"
                      " WHERE (players.account_id = :account_id)").params(account_id=account_id)
@@ -30,7 +29,6 @@ class Players(object):
 
     @staticmethod
     def find_users_of_tour(tournament_id):
-
         stmt = text("SELECT * FROM account"
                      " LEFT JOIN players ON players.account_id = account.id"
                      " WHERE (players.tournament_id = :tournament_id)").params(tournament_id=tournament_id)
@@ -60,6 +58,23 @@ class Players(object):
             tournamentplayers.append(row[0]) # should only get users non sensitive information
 
         return tournamentplayers
+
+    @staticmethod
+    def find_user_count_of_tour(tournament_id):
+        stmt = text("SELECT COUNT(*) FROM account"
+                     " LEFT JOIN players ON players.account_id = account.id"
+                     " WHERE (players.tournament_id = :tournament_id)").params(tournament_id=tournament_id)
+
+        response = db.engine.execute(stmt)
+
+        count = 0
+
+        for row in response:
+            print('ASAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',row)
+
+            count = row[0]
+
+        return count
 
     @staticmethod
     def delete_rows_with_tour(tournament_id):

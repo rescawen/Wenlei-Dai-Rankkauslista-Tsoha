@@ -12,6 +12,7 @@ def index():
         return render_template("/index/index.html", form = LoginForm(), 
         tournaments = Tournament.query.all(), 
         ownedtournaments = Tournament.query.filter_by(account_id=current_user.id),
-        joinedtournaments = joined)
+        joinedtournaments = joined,
+        Players=Players)
     else:
-        return render_template("/index/index.html", form = LoginForm(), tournaments = Tournament.query.all())    
+        return render_template("/index/index.html", form = LoginForm(), tournaments = Tournament.query.all(),Players=Players)    
