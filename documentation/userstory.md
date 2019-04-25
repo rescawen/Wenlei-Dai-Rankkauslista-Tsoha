@@ -1,27 +1,41 @@
-Vaikka SQLalchemy tekee suurimman osan kyselyistä puolestasi, pitää sinunkin tietää ja ymmärtää, mitä kyselyitä todellisuudessa tietokannasta kysytään. Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt, lisää dokumentaatiossasi käyttötapauksiin niihin liittyvät kyselyt.Jos jokin käyttötapaus jää toteuttamatta, merkitse siitä tieto dokumentaatioosi.
+Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt, lisää dokumentaatiossasi käyttötapauksiin niihin liittyvät kyselyt.Jos jokin käyttötapaus jää toteuttamatta, merkitse siitä tieto dokumentaatioosi.
 
 # User Story
 
-### When user lands on front page
+### When user lands on front/index page unregistered
 
-- User can see a list of all tournaments <br/>
+- User can see a list of all tournaments. For each tournament there is its name and player count displayed. <br/>
   `SELECT * FROM tournament`
-- User can click a link that takes you into a specific tournament page and only view it
-- User can log in
-- User can create a new account
+- User can log in.
+- User can click `Register as new user` in the navigation bar to go to new account registration page.
 
-### When user is logged in
+### When user is in account registration page
 
-- User still sees a list of all tournaments <br/>
+- User can fill out a form with name, username and password to register.
+
+### When user is logged in and is in any page
+
+- User can click `Tournament bracket application` in the navigation bar to return index page.
+- User can click `Create new tournament` in the navigation bar to go to new tournament creation page.
+
+
+### When user is logged into index page
+
+- User sees a list of all tournaments. <br/>
   `SELECT * FROM tournament`
+- User sees a list of all tournaments it has signed up for. <br/>
+- User sees a list of all tournaments it has created and administrates. <br/>
 - User can log out
-- User can create a tournament
-- User can click a link that takes you into a specific tournament page <br/>
+- User can click a tournament name to take them into a specific tournament page <br/>
   `SELECT * FROM tournament WHERE id='tournament.id'`
+
+### When user is logged in and in tournament creation page
+
+- User can fill out a form with name, maximum player count and optional description to create a new tournament.
 
 ### When user is logged in and viewing specific tournament
 
-- User can choose to join the specific tournament
+- User can press the `Join tournament` button to join the specific tournament
 - User can be the creator of the tournament and manipulate it by starting it and advancing matches
 
 ### When user is signed up for tournament
