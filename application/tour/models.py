@@ -70,8 +70,21 @@ class Players(object):
         count = 0
 
         for row in response:
-            print('ASAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',row)
+            count = row[0]
 
+        return count
+
+    @staticmethod
+    def find_tour_count_of_user(account_id):
+        stmt = text("SELECT COUNT(*) FROM tournament"
+                     " LEFT JOIN players ON players.tournament_id = tournament.id"
+                     " WHERE (players.account_id = :account_id)").params(account_id=account_id)
+
+        response = db.engine.execute(stmt)
+
+        count = 0
+
+        for row in response:
             count = row[0]
 
         return count
@@ -104,8 +117,6 @@ class Tournament(db.Model):
     player_count = db.Column(db.Integer, nullable=False)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     started = db.Column(db.Boolean, nullable=False)
-
-    # players = db.relationship('User', secondary=players, backref=db.backref('tournaments', lazy=True))
 
     def __init__(self, name, playercount, account_id):
         self.name = name

@@ -64,29 +64,29 @@ class Match(db.Model):
 
     # WE SHOULD ADD ANOTHER METHOD THAT USES THIS WINNER METHOD TO AUTOMATICALLY PUSH MATCHES THAT DON'T HAVE OPPONENTS ON THE FIRST ROUND FORWARD
 
-    @staticmethod
-    def select_matches_asc_by_tournament_id(tournament_id):
+    # @staticmethod
+    # def select_matches_asc_by_tournament_id(tournament_id):
 
-        stmt = text("SELECT * FROM match"
-                    " WHERE tournament_id = :tournament_id"
-                    " ORDER BY match_id ASC").params(tournament_id=tournament_id)
+    #     stmt = text("SELECT * FROM match"
+    #                 " WHERE tournament_id = :tournament_id"
+    #                 " ORDER BY match_id ASC").params(tournament_id=tournament_id)
 
-        response = []
+    #     response = []
 
-        res = db.engine.execute(stmt)
+    #     res = db.engine.execute(stmt)
 
-        for row in res:
-            response.append({"id":row[0], 
-            "date_created":row[1], 
-            "date_modified":row[2], 
-            "tournament_id":row[3], 
-            "match_id":row[4], 
-            "round_number":row[5], 
-            "player1_id":row[6],
-            "player2_id":row[7],
-            "player1_score":row[8],
-            "player2_score":row[9],
-            "winner_id":row[10]})
+    #     for row in res:
+    #         response.append({"id":row[0], 
+    #         "date_created":row[1], 
+    #         "date_modified":row[2], 
+    #         "tournament_id":row[3], 
+    #         "match_id":row[4], 
+    #         "round_number":row[5], 
+    #         "player1_id":row[6],
+    #         "player2_id":row[7],
+    #         "player1_score":row[8],
+    #         "player2_score":row[9],
+    #         "winner_id":row[10]})
             
 
-        return response
+    #     return response
