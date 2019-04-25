@@ -6,11 +6,16 @@
 <main>
       <div class="jumbotron">
             <h1 class="display-4">{{ tournament.name }}</h1>
+            <br />
             {% if current_user.id == tournament.account_id and tournament.started == False %}
 
-            <a href="{{ url_for('tour_edit_page', id=tournament.id) }}">edit this tournament</a>
+            <form class="editstart" method="POST" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
+                  <input type="submit" value="Edit this tournament" />
+            </form>
 
-            <form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
+            <br />
+
+            <form class="editstart" method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
                   <input type="submit" value="Start this tournament!" />
             </form>
 
