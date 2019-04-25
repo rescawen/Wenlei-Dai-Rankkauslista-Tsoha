@@ -26,3 +26,10 @@ Clone this repository and run:
 
 `pip install -r requirements.txt`
 
+## Running the application
+
+Note: the database is situated under [folder database](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/application/__init__.py#L11), if the folder does not exist manually create it yourself.
+
+Once installation is complete, run: 
+
+`python run.py`
