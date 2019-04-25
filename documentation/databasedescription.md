@@ -39,7 +39,6 @@ CREATE TABLE tournament (
 	name VARCHAR(144) NOT NULL, 
 	player_count INTEGER NOT NULL, 
 	description TEXT, 
-	start_time DATETIME NOT NULL, 
 	account_id INTEGER NOT NULL, 
 	started BOOLEAN NOT NULL, 
 	PRIMARY KEY (id), 
