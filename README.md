@@ -20,7 +20,8 @@ The main page will show a list of all tournaments (visible even without log in).
 
 The inspiration is a very simple version of [Challonge](https://challonge.com/).
 
-## Installation
+## Installation 
+[Complete installation guide](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/installationguide.md)
 
 Clone this repository and run:
 
