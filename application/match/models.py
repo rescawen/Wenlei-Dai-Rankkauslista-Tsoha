@@ -16,8 +16,8 @@ class Match(db.Model):
     round_number = db.Column(db.Integer, nullable=False)
     player1_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # when creating all match elements instantly this
     player2_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # is empty for vast majorit of elements
-    player1_name = db.Column(db.String(144), nullable=False)
-    player2_name = db.Column(db.String(144), nullable=False)
+    player1_name = db.Column(db.String(144), nullable=False) # (database normalization) these are just placeholder columns for when we render matches that haven't been played
+    player2_name = db.Column(db.String(144), nullable=False) # or without maximum/even amount of players. The names are always updated in realtime in the views before actually rendering.
     player1_score = db.Column(db.Integer, nullable=False)
     player2_score = db.Column(db.Integer, nullable=False)
 
