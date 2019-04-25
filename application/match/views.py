@@ -29,3 +29,9 @@ def match_submit(id, tournament_id, match_id):
     db.session().commit()
 
     return redirect(url_for('tournament', id=tournament_id))  
+
+@app.route("/tournament/<string:tournament_id>/match/<string:id>/<string:match_id>", methods=["POST"])
+@login_required
+def match_delete():
+    return
+    #can only delete leaflets by checking if round number is currently the biggest possible

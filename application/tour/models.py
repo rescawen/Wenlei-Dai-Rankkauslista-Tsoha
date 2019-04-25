@@ -115,13 +115,15 @@ class Tournament(db.Model):
 
     name = db.Column(db.String(144), nullable=False)
     player_count = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text, nullable=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     started = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name, playercount, account_id):
+    def __init__(self, name, playercount, account_id, description):
         self.name = name
         self.player_count = playercount
         self.account_id = account_id
+        self.description = description
         self.started = False
 
     def is_started(self):

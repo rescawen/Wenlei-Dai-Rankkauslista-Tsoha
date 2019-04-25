@@ -45,7 +45,7 @@ def tour_create():
     if not form.validate():
         return render_template("tour/createform.html", form = form)
 
-    newT = Tournament(form.name.data, form.playercount.data, current_user.id)
+    newT = Tournament(form.name.data, form.playercount.data, current_user.id, form.description.data)
     db.session().add(newT)
     db.session().commit()
 
@@ -68,6 +68,7 @@ def tour_edit(id):
     
     editT.name = form.name.data
     editT.player_count = form.playercount.data 
+    editT.description = form.description.data
 
     db.session().commit()
 
@@ -106,8 +107,6 @@ def tour_join(id):
 @app.route("/tournament/<string:id>/start", methods=["POST"])
 @login_required
 def tour_start(id):
-
-    #validation if play
 
     players = Players.find_user_id_of_tour(id)
 

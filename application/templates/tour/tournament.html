@@ -9,13 +9,13 @@
             <br />
             {% if current_user.id == tournament.account_id and tournament.started == False %}
 
-            <form class="editstart" method="POST" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
+            <form method="POST" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
                   <input type="submit" value="Edit this tournament" />
             </form>
 
             <br />
 
-            <form class="editstart" method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
+            <form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
                   <input type="submit" value="Start this tournament!" />
             </form>
 
@@ -37,10 +37,12 @@
 
                         <li>&nbsp;  
                               <!-- super user or admin can always change and report result, average user can only report own match result -->
+                              {% if match.player1_id == current_user.id or match.player2_id == current_user.id or tournament.account_id == current_user.id %}
                               <button type="button" class="btn btn-primary report-btn" data-toggle="modal"
                                     data-target="#{{ match.match_id }}">
                                     report result
                               </button>
+                              {% endif %}
                         </li>
 
                         <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
