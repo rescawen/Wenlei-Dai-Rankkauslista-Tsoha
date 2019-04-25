@@ -1,18 +1,23 @@
+Vaikka SQLalchemy tekee suurimman osan kyselyistä puolestasi, pitää sinunkin tietää ja ymmärtää, mitä kyselyitä todellisuudessa tietokannasta kysytään. Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt, lisää dokumentaatiossasi käyttötapauksiin niihin liittyvät kyselyt.Jos jokin käyttötapaus jää toteuttamatta, merkitse siitä tieto dokumentaatioosi.
+
 # User Story
 
 ### When user lands on front page
 
-- User can see a list of all tournaments
+- User can see a list of all tournaments <br/>
+  `SELECT * FROM tournament`
 - User can click a link that takes you into a specific tournament page and only view it
 - User can log in
 - User can create a new account
 
 ### When user is logged in
 
-- User still sees a list of all tournaments
+- User still sees a list of all tournaments <br/>
+  `SELECT * FROM tournament`
 - User can log out
 - User can create a tournament
-- User can click a link that takes you into a specific tournament page 
+- User can click a link that takes you into a specific tournament page <br/>
+  `SELECT * FROM tournament WHERE id='tournament.id'`
 
 ### When user is logged in and viewing specific tournament
 
