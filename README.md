@@ -11,8 +11,10 @@ Programming languages: Python, SQL, HTML, CSS
 Log in username and password are both: `hello` Registration is possible so this isn't necessary. 
 
 #### [Userstory](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userstory.md)
+#### [Database Description](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md)
 #### [Database Diagram](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/TsohaWenleiDaiTietokantaKaavio.pdf)
-#### [User guide](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userguide.md)
+#### [User Guide](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userguide.md)
+#### [Incomplete Features](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/incompletefeatures.md)
 
 ## Topic Description
 
