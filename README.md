@@ -14,7 +14,7 @@ Programming languages: Python, SQL, HTML, CSS
 
 ## Topic Description
 
-The main page will show a list of all tournaments (visible even without log in). User can create and log in with an account. Once logged in, user can both create and join these tournaments. Tournaments are in single elimination format and have random seedings for initial simplicity. 
+The main page will show a list of all tournaments (visible even without log in). User can create and log in with an account. Once logged in, user can both create and join these tournaments. Tournaments are in single elimination format and have seedings based on the order of players who have joined it.
 
 The inspiration is a very simple version of [Challonge](https://challonge.com/).
 
