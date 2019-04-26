@@ -93,6 +93,11 @@ def tour_join(id):
 
     players = Players.find_user_id_of_tour(id)
 
+    T = Tournament.query.get(id)
+
+    if len(players) == T.player_count:
+        return redirect(url_for('tournament', id=id, error='The tournament you want to sign up for is full'))
+
     for player in players:
         if player == current_user.id:
             return redirect(url_for('tournament', id=id, error='You have already signed up for the tournament'))
