@@ -18,7 +18,6 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 - User can click `Tournament bracket application` in the navigation bar to return index page.
 - User can click `Create new tournament` in the navigation bar to go to new tournament creation page.
 
-
 ### When user is logged into index page
 
 - User sees a list of all tournaments. <br/>
@@ -33,12 +32,17 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 
 - User can fill out a form with name, maximum player count and optional description to create a new tournament.
 
-### When user is logged in and viewing specific tournament
+### When user is logged in and in specific tournament that has not started
 
-- User can press the `Join tournament` button to join the specific tournament
-- User can be the creator of the tournament and manipulate it by starting it and advancing matches
+- User can click the `Join tournament` button to join the specific tournament.
+- If user is the creator of the tournament, then the user can choose to start the tournament regardless of the amount of players.
 
-### When user is signed up for tournament
+### When user is logged in and in a specific tournament that has started
 
-- User can see the whole bracket
-- User can see their current match including their opponent
+- User can see the whole bracket.
+- If user is participating then the user can hover mouse inbetween their matches and click the `report result` button.
+- If user is the creator of the tournament, then the user has access to all the `report result` buttons in the bracket.
+
+### When the user is logged in, still in a specific tournament that has started and triggered the report result form
+
+- User can submit scores for the specific match and choose a winner.
