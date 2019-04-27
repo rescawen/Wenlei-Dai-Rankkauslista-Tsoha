@@ -2,6 +2,10 @@
 
 ## The limitations of the work and application 
 
+The start time for a tournament is usually a very important feature which is left out due to problems in the front end. The input field for the datetime was not straight forward and did not come natively with HTML5 for example in the firefox browser. 
+
+Leaving the tournament. 
+
 ## The features that are left out of the work. 
 
 Seeding is completely left out. Seeding should be part of this application to begin with. However usually seeding is done by a combination of "ladder" ranking and "tournament" ranking if it is done properly. It is usually the admins job to manually to search for these and especially put the highest ranked players on opposite side of bracket when there is prizes involved. 

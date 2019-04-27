@@ -1,5 +1,13 @@
 # Database Description
 
+### Database Normalization Clarification
+
+There is only one place where it might seem that there are problems when it comes to redundant data. That is in the [player names columns](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/application/match/models.py#L19) of the match table. In reality it is just a [placeholder](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/application/match/models.py#L32) for a default value that is either `Player 1` and `Player 2` and we do not actually save the player names into it. 
+
+When we query the list of matches in the views.py, we also query a separate the list of the players participating in the tournament. We then use the unique identifiers to [match](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/application/tour/views.py#L26) the name of the player from the players list to the player name in the match list. 
+
+Having the attribute there makes it easy to do the matching and rendering placeholder `Player 1` and `Player 2`. It is also future proof, so that it ensures that in the scenario of the possibility of user being able to change their names, it would not affect the rendering of the tournament. 
+
 ### CREATE TABLE statements when creating databases
 
 CREATE TABLE account ( <br/>
