@@ -1,0 +1,26 @@
+{% extends "/index/layout.html" %}
+
+{% block body %}
+{{ error }}
+
+<div class="jumbotron">
+    <h1 class="display-4">Tournaments</h1>
+    <p class="lead">I have signed up for total of {{ Players.find_tour_count_of_user(current_user.id) }}</p>
+    <hr class="my-4">
+    <ul class="list-group">
+        {% for tournament in joinedtournaments %}
+        <li class="list-group-item d-flex justify-content-between align-items-center"><a
+                href="{{ url_for('tournament', id=tournament.id) }}">{{ tournament.name }}</a>
+            {% if tournament.started == True %}
+            <span class="badge badge-primary badge-pill">{{ Players.find_user_count_of_tour(tournament.id)}}</span>
+            {% else %}
+            <span
+                class="badge badge-primary badge-pill">{{ Players.find_user_count_of_tour(tournament.id)}}/{{ tournament.player_count }}</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

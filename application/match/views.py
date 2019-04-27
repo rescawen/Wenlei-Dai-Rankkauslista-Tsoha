@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
@@ -30,8 +30,17 @@ def match_submit(id, tournament_id, match_id):
 
     return redirect(url_for('tournament', id=tournament_id))  
 
-@app.route("/tournament/<string:tournament_id>/match/<string:id>/<string:match_id>", methods=["POST"])
+@app.route("/tournament/<string:tournament_id>/match/<string:id>/<string:round_number>/<string:maximum_rounds>", methods=["POST"])
 @login_required
-def match_delete():
-    return
-    #can only delete leaflets by checking if round number is currently the biggest possible
+def match_delete(id, tournament_id, round_number, maximum_rounds):
+
+    if round_number == maximum_rounds:
+        M = Match.query.get(id)
+
+        db.session.delete(M) 
+        db.session().commit()
+    
+    else:
+        flash('If you want to delete a match, you must start at the leaflet of the bracket')
+
+    return redirect(url_for('tournament', id=tournament_id))

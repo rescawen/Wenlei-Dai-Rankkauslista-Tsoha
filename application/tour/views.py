@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
@@ -8,7 +8,7 @@ from application.tour.forms import TournamentForm
 from application.match.models import Match
 from application.match.forms import MatchForm
 
-@app.route("/tournament/<string:id>")
+@app.route("/tournament/<string:id>", methods=["GET"])
 @login_required
 def tournament(id):
     players = Players.find_users_of_tour(id)
@@ -28,22 +28,22 @@ def tournament(id):
                 elif player.id == m.player2_id:
                     m.player2_name = player.name
 
-        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm(), maximum_rounds = maximum_rounds)
+        return render_template("tournament/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm(), maximum_rounds = maximum_rounds)
     else:
-        return render_template("tour/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
+        return render_template("tournament/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
-@app.route("/tour/new/")
+@app.route("/tournament/new/")
 @login_required
 def tour_new():
-    return render_template("tour/createform.html", form = TournamentForm())
+    return render_template("tournament/createform.html", form = TournamentForm())
 
-@app.route("/tour/create", methods=["POST"])
+@app.route("/tournament/create", methods=["POST"])
 @login_required
 def tour_create():
     form = TournamentForm(request.form)
 
     if not form.validate():
-        return render_template("tour/createform.html", form = form)
+        return render_template("tournament/createform.html", form = form)
 
     newT = Tournament(form.name.data, form.playercount.data, current_user.id, form.description.data)
     db.session().add(newT)
@@ -54,7 +54,7 @@ def tour_create():
 @app.route("/tournament/<string:id>/edit")
 @login_required
 def tour_edit_page(id):
-    return render_template("tour/editform.html", id=id, tournament = Tournament.query.get(id), form = TournamentForm())
+    return render_template("tournament/editform.html", id=id, tournament = Tournament.query.get(id), form = TournamentForm())
 
 @app.route("/tournament/<string:id>/edit", methods=["POST"])
 @login_required
@@ -62,7 +62,7 @@ def tour_edit(id):
     form = TournamentForm(request.form)
 
     if not form.validate():
-        return render_template("tour/editform.html", id=id, tournament = Tournament.query.get(id), form = form)
+        return render_template("tournament/editform.html", id=id, tournament = Tournament.query.get(id), form = form)
 
     editT = Tournament.query.get(id)
     
@@ -95,12 +95,14 @@ def tour_join(id):
 
     T = Tournament.query.get(id)
 
-    if len(players) == T.player_count:
-        return redirect(url_for('tournament', id=id, error='The tournament you want to sign up for is full'))
-
     for player in players:
         if player == current_user.id:
-            return redirect(url_for('tournament', id=id, error='You have already signed up for the tournament'))
+            flash('You have already signed up for the tournament')
+            return redirect(url_for('tournament', id=id))
+
+    if len(players) == T.player_count:
+        flash('The tournament you want to sign up for is full')
+        return redirect(url_for('tournament', id=id))
 
     newP = Players(current_user.id, id)
 
@@ -116,7 +118,8 @@ def tour_start(id):
     players = Players.find_user_id_of_tour(id)
 
     if len(players) == 0:
-        return redirect(url_for('tournament', id=id, error='You must have at least one player to start a tournament')) 
+        flash('You must have at least one player to start a tournament')
+        return redirect(url_for('tournament', id=id)) 
 
     minimum_player_count = 2
     bracket_size = 0
