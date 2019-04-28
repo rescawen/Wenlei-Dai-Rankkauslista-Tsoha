@@ -3,6 +3,58 @@
     width:150px;
 }
 
+.container-frontpage-not-logged {
+  display:flex;
+  flex-direction: row;
+}
+
+.formleft {
+  flex:1;
+  order:1;
+  margin-left:10px;
+  margin-top:100px;
+  
+}
+
+.listright {
+  flex:3;
+  order:2;
+  margin: 40px;
+}
+
+.container-frontpage-logged-in {
+    display:flex;
+    flex-direction: row;
+  }
+
+.left-item {
+    flex:1;
+    margin:30px;
+}
+.middle-item {
+    flex:1;
+    margin:30px;
+}
+.right-item {
+    flex:1;
+    margin:30px;
+}
+
+.all-list-container {
+    margin: 50px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    border: 1px solid;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
 .modal {
     width: 300px;
     margin: auto;
