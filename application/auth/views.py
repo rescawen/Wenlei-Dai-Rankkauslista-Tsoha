@@ -41,4 +41,6 @@ def auth_create():
     db.session().add(newUser)
     db.session().commit()
 
+    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    login_user(user)
     return redirect(url_for("index"))  

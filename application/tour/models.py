@@ -27,6 +27,7 @@ class Players(object):
 
         return response
 
+
     @staticmethod
     def find_users_of_tour(tournament_id):
         stmt = text("SELECT * FROM account"

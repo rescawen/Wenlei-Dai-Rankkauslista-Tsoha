@@ -16,8 +16,8 @@ class Match(db.Model):
     round_number = db.Column(db.Integer, nullable=False)
     player1_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # when creating all match elements instantly this
     player2_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) # is empty for vast majorit of elements
-    player1_name = db.Column(db.String(144), nullable=False) # (database normalization) these are just placeholder columns for when we render matches that haven't been played
-    player2_name = db.Column(db.String(144), nullable=False) # or without maximum/even amount of players. The names are always updated in realtime in the views before actually rendering.
+    player1_name = db.Column(db.String(144), nullable=False)
+    player2_name = db.Column(db.String(144), nullable=False)
     player1_score = db.Column(db.Integer, nullable=False)
     player2_score = db.Column(db.Integer, nullable=False)
 
@@ -64,29 +64,3 @@ class Match(db.Model):
 
     # WE SHOULD ADD ANOTHER METHOD THAT USES THIS WINNER METHOD TO AUTOMATICALLY PUSH MATCHES THAT DON'T HAVE OPPONENTS ON THE FIRST ROUND FORWARD
 
-    # @staticmethod
-    # def select_matches_asc_by_tournament_id(tournament_id):
-
-    #     stmt = text("SELECT * FROM match"
-    #                 " WHERE tournament_id = :tournament_id"
-    #                 " ORDER BY match_id ASC").params(tournament_id=tournament_id)
-
-    #     response = []
-
-    #     res = db.engine.execute(stmt)
-
-    #     for row in res:
-    #         response.append({"id":row[0], 
-    #         "date_created":row[1], 
-    #         "date_modified":row[2], 
-    #         "tournament_id":row[3], 
-    #         "match_id":row[4], 
-    #         "round_number":row[5], 
-    #         "player1_id":row[6],
-    #         "player2_id":row[7],
-    #         "player1_score":row[8],
-    #         "player2_score":row[9],
-    #         "winner_id":row[10]})
-            
-
-    #     return response

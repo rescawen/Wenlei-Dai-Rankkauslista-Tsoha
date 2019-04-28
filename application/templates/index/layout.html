@@ -6,105 +6,31 @@
     <title>Tournament Bracket Application</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        .modal {
-            width: 300px;
-            margin: auto;
-        }
 
-        main,
-        ul,
-        .bracket {
-            display: flex;
-        }
-
-        ul {
-            flex-direction: column;
-            width: 200px;
-            list-style: none;
-            padding: 0;
-        }
-
-        .game+li {
-            flex-grow: 1;
-        }
-
-        li:first-child,
-        li:last-child {
-            flex-grow: .5;
-        }
-
-        .game {
-            padding-left: 20px;
-        }
-
-        .winner {
-            font-weight: bold;
-        }
-
-        .game span {
-            float: right;
-            margin-right: 5px;
-        }
-
-        .game-top {
-            border-bottom: 1px solid #aaa;
-        }
-
-        .game-top+li {
-            border-right: 1px solid #aaa;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .game-top+li .report-btn {
-            display: none;
-        }
-
-        .game-top+li:hover .report-btn {
-            display: inline-block;
-        }
-
-        .report-btn {
-            position: relative;
-            width: 150px;
-        }
-
-        .game-bottom {
-            border-top: 1px solid #aaa;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="/">Tournament Bracket Application</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             {% if current_user.is_authenticated %}
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('all_tour', page_num=1) }} ">List all tournaments</a>
+                    <a class="nav-link" href="{{ url_for('all_tour', page_num=1) }} ">All tournaments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('joined_tour') }} ">List all joined tournaments</a>
+                    <a class="nav-link" href="{{ url_for('joined_tour', page_num=1) }} ">Joined tournaments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('owned_tour') }} ">List all owned tournaments</a>
+                    <a class="nav-link" href="{{ url_for('owned_tour', page_num=1) }} ">Owned tournaments</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('tour_new') }} ">Create new tournament</a>
                 </li>
             </ul>
             <div class="form-inline mt-2 mt-md-0">
-
                 <a href="{{ url_for('auth_logout') }}">Hello user {{ current_user.name }} -- Logout</a>
-
             </div>
             {% else %}
             <ul class="navbar-nav mr-auto">
@@ -127,9 +53,6 @@
     {% endwith %}
 
     {% block body %}
-    <p>
-        Content.
-    </p>
     {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
