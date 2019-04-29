@@ -74,7 +74,10 @@
                                                 {{ form.player2_score }}
                                                 <div id="playerids" style="display: none;">
                                                       {{ form.player1_id(value=match.player1_id) }}
+                                                      {% if match.player2_id %}
                                                       {{ form.player2_id(value=match.player2_id) }}
+                                                      {% else %}
+                                                      {% endif %}
                                                 </div>
                                           </div>
                                           <div class="modal-footer">
