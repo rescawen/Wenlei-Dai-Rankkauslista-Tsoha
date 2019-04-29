@@ -2,7 +2,7 @@
 
 [2019 kevään neljännen periodin tietokantasovellus harjoitustyö](https://materiaalit.github.io/tsoha-19/)
 
-Programming languages: Python, SQL, HTML, CSS
+Programming languages: Python 3, SQL, HTML, CSS
 
 ## Documentation
 
