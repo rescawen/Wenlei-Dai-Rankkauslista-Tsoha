@@ -2,57 +2,65 @@
 
 {% block body %}
 {{ error }}
+<div class="all-list-container">
+    <div class="jumbotron">
+        <h1 class="display-4">Edit tournament: {{ tournament.name }}</h1>
+        <hr class="my-4">
+        <form method="POST" action="{{ url_for('tour_delete', id=tournament.id) }}">
+            <input type="submit" value="Delete this tournament" />
+        </form>
+        <hr class="my-4">
+        <form method="POST" action="{{ url_for('tour_edit', id=tournament.id) }}">
+            <table>
+                <tr>
+                    <td>
+                        {{ form.name.label }}
+                    </td>
+                    <td>
+                        {{ form.name }}
+                    </td>
+                    <td>
+                        <ul>
+                            {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form.playercount.label }}
+                    </td>
+                    <td>
+                        {{ form.playercount }}
+                    </td>
+                    <td>
+                        <ul>
+                            {% for error in form.playercount.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ form.description.label }}
+                    </td>
+                    <td>
+                        {{ form.description }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Edit Tournament" />
+                    </td>
+                </tr>
 
-<form method="POST" action="{{ url_for('tour_edit', id=tournament.id) }}">
-    <table>
-        <tr>
-            <td>
-                {{ form.name.label }}
-            </td>
-            <td>
-                {{ form.name }}
-            </td>
-            <td>
-                <ul>
-                    {% for error in form.name.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.playercount.label }}
-            </td>
-            <td>
-                {{ form.playercount }}
-            </td>
-            <td>
-                <ul>
-                    {% for error in form.playercount.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.description.label }}
-            </td>
-            <td>
-                {{ form.description }}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Edit Tournament" />
-            </td>
-        </tr>
-</form>
+            </table>
+        </form>
 
-<!-- some html problem this button is above the form ????????? -->
+        <!-- some html problem this button is above the form ????????? -->
 
-<form method="POST" action="{{ url_for('tour_delete', id=tournament.id) }}">
-    <input type="submit" value="Delete this tournament" />
-</form>
+    </div>
+</div>
 {% endblock %}

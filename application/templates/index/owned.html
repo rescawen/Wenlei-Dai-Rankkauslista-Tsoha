@@ -24,7 +24,7 @@
     </div>
 </div>
 
-
+<div class="pagination">
 {% for page in ownedtournaments.iter_pages() %}
 
 {% if page %}
@@ -34,6 +34,6 @@
 {% endif %}
 
 {% endfor%}
-
+</div>
 
 {% endblock %}

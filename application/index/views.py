@@ -11,14 +11,14 @@ from sqlalchemy.sql import text
 @app.route("/", methods=["GET"])
 def index():
     if current_user.is_authenticated:
-        joined = Players.find_tour_with_user(current_user.id)
+        # joined = Players.find_tour_with_user(current_user.id)
         return render_template("/index/index.html", 
-        tournaments = Tournament.query.all(), 
-        ownedtournaments = Tournament.query.filter_by(account_id=current_user.id),
-        joinedtournaments = joined,
+        tournaments = Tournament.query.limit(8), 
+        ownedtournaments = Tournament.query.filter_by(account_id=current_user.id).limit(8),
+        joinedtournaments = Tournament.query.join(Players, Tournament.id==Players.tournament_id).filter_by(account_id=current_user.id).limit(8),
         Players=Players)
     else:
-        return render_template("/index/index.html", form = LoginForm(), tournaments = Tournament.query.limit(8).all(),Players=Players)    
+        return render_template("/index/index.html", form = LoginForm(), tournaments = Tournament.query.limit(8),Players=Players)    
 
 @app.route("/all_tournaments/<int:page_num>", methods=["GET"])
 @login_required

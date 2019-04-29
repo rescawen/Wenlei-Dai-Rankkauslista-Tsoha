@@ -55,6 +55,10 @@
     text-decoration: none;
   }
 
+.list-group {
+    width:300px;
+}
+
 .modal {
     width: 300px;
     margin: auto;

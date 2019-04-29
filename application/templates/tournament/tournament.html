@@ -14,7 +14,7 @@
       <br />
       {% if current_user.id == tournament.account_id and tournament.started == False %}
 
-      <form method="POST" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
+      <form method="GET" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
             <input type="submit" value="Edit this tournament" />
       </form>
 

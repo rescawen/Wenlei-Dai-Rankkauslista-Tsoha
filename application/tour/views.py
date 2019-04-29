@@ -51,10 +51,18 @@ def tour_create():
 
     return redirect(url_for("index"))  
 
-@app.route("/tournament/<string:id>/edit")
+@app.route("/tournament/<string:id>/edit", methods=["GET"])
 @login_required
 def tour_edit_page(id):
-    return render_template("tournament/editform.html", id=id, tournament = Tournament.query.get(id), form = TournamentForm())
+
+    tournament = Tournament.query.get(id)
+
+    form = TournamentForm()
+    form.name.data = tournament.name
+    form.playercount.data = tournament.player_count
+    form.description.data = tournament.description
+
+    return render_template("tournament/editform.html", id=id, tournament=tournament, form=form)
 
 @app.route("/tournament/<string:id>/edit", methods=["POST"])
 @login_required
