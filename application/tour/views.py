@@ -13,6 +13,8 @@ from application.match.forms import MatchForm
 def tournament(id):
     players = Players.find_users_of_tour(id)
 
+    # verification for whether user can be something must be checked here
+
     if Tournament.query.get(id).started == True:
         tm = Match.query.filter_by(tournament_id=id).order_by('match_id')
         
@@ -54,7 +56,7 @@ def tour_create():
 @app.route("/tournament/<string:id>/edit", methods=["GET"])
 @login_required
 def tour_edit_page(id):
-
+    # current user id = tournament account id
     tournament = Tournament.query.get(id)
 
     form = TournamentForm()
@@ -67,6 +69,7 @@ def tour_edit_page(id):
 @app.route("/tournament/<string:id>/edit", methods=["POST"])
 @login_required
 def tour_edit(id):
+    #check 
     form = TournamentForm(request.form)
 
     if not form.validate():
@@ -136,7 +139,6 @@ def tour_start(id):
     round_multiplier = 2
 
     while True:
-        print('stuck')
         if len(players) <= minimum_player_count:
             bracket_size = minimum_player_count
             break

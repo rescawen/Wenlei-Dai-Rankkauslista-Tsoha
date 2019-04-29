@@ -28,6 +28,8 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 - User can click a tournament name to take them into a specific tournament page <br/>
   `SELECT * FROM tournament WHERE id='tournament.id'`
 
+### When user is logged and in all/joined/owned tournaments page
+
 ### When user is logged in and in tournament creation page
 
 - User can fill out a form with name, maximum player count and optional description to create a new tournament.

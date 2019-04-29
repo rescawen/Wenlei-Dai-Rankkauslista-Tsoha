@@ -67,6 +67,8 @@ CREATE TABLE "match" (<br/>
 
 ### Original database plans before starting the project.
 
+One of the areas where I underestimated complexity is definitely the match table. It was supposed to be one of the simplest features, but turned out to be the single most difficult thing in the whole bracket, especially generating them. 
+
 ##### User table
 
 id | date_created | date_modified | username | password | ranking_points | wins | losses|
