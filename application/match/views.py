@@ -14,9 +14,15 @@ def match_submit(id, tournament_id, match_id):
     
     form = MatchForm(request.form)
 
-    if not form.validate():
-        flash('empty scores for your match result or did not select winner')
-        return redirect(url_for('tournament', id=tournament_id))
+    # if not form.validate():
+    #     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',form.player1_score.data)
+    #     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',form.player2_score.data)
+    #     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',form.winner_boolean.data)
+    #     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',form.player1_id.data)
+    #     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',form.player2_id.data)
+
+    #     flash('empty scores for your match result or did not select winner')
+    #     return redirect(url_for('tournament', id=tournament_id))
 
     editM = Match.query.get(id)
 
