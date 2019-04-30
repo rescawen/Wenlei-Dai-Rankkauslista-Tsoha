@@ -11,11 +11,16 @@ from application.match.forms import MatchForm
 @app.route("/tournament/<string:id>", methods=["GET"])
 @login_required
 def tournament(id):
+
+    T = Tournament.query.get(id)
+
+    if not T:
+        flash('The following tournament your looking for does not exist')
+        return redirect(url_for("index"))  
+
     players = Players.find_users_of_tour(id)
 
-    # verification for whether user can be something must be checked here
-
-    if Tournament.query.get(id).started == True:
+    if T.started == True:
         tm = Match.query.filter_by(tournament_id=id).order_by('match_id')
         
         maximum_rounds = 1
@@ -36,7 +41,7 @@ def tournament(id):
 
 @app.route("/tournament/new/")
 @login_required
-def tour_new():
+def tour_new(): # should this naming be create_page?
     return render_template("tournament/createform.html", form = TournamentForm())
 
 @app.route("/tournament/create", methods=["POST"])
@@ -56,26 +61,41 @@ def tour_create():
 @app.route("/tournament/<string:id>/edit", methods=["GET"])
 @login_required
 def tour_edit_page(id):
-    # current user id = tournament account id
-    tournament = Tournament.query.get(id)
+    editT = Tournament.query.get(id)
+
+    if not editT:
+        flash('The tournament your trying to edit for does not exist')
+        return redirect(url_for("index")) 
+
+    if not editT.account_id == current_user.id:
+        flash('you are trying to edit a tournament you do not have permission for')
+        return redirect(url_for('tournament', id=id))
 
     form = TournamentForm()
-    form.name.data = tournament.name
-    form.playercount.data = tournament.player_count
-    form.description.data = tournament.description
+    form.name.data = editT.name
+    form.playercount.data = editT.player_count
+    form.description.data = editT.description
 
-    return render_template("tournament/editform.html", id=id, tournament=tournament, form=form)
+    return render_template("tournament/editform.html", id=id, tournament=editT, form=form)
 
 @app.route("/tournament/<string:id>/edit", methods=["POST"])
 @login_required
 def tour_edit(id):
-    #check 
+
+    editT = Tournament.query.get(id)
+
+    if not editT:
+        flash('The tournament your trying to edit for does not exist')
+        return redirect(url_for("index"))  
+
+    if not editT.account_id == current_user.id:
+        flash('you are trying to edit a tournament you do not have permission for')
+        return redirect(url_for('tournament', id=id))
+
     form = TournamentForm(request.form)
 
     if not form.validate():
         return render_template("tournament/editform.html", id=id, tournament = Tournament.query.get(id), form = form)
-
-    editT = Tournament.query.get(id)
     
     editT.name = form.name.data
     editT.player_count = form.playercount.data 
@@ -89,11 +109,19 @@ def tour_edit(id):
 @login_required
 def tour_delete(id):
 
+    deleteT = Tournament.query.get(id)
+
+    if not deleteT:
+        flash('The tournament your trying to delete does not exist')
+        return redirect(url_for("index"))  
+
+    if not deleteT.account_id == current_user.id:
+        flash('You are trying to delete a tournament that you do not have permission for')
+        return redirect(url_for('tournament', id=id))
+
     Players.delete_rows_with_tour(id)
 
-    T = Tournament.query.get(id)
-
-    db.session.delete(T) 
+    db.session.delete(deleteT) 
     db.session().commit()
 
     return redirect(url_for("index")) 
@@ -102,16 +130,20 @@ def tour_delete(id):
 @login_required
 def tour_join(id):
 
-    players = Players.find_user_id_of_tour(id)
+    joinT = Tournament.query.get(id)
 
-    T = Tournament.query.get(id)
+    if not joinT:
+        flash('The tournament your trying to join does not exist')
+        return redirect(url_for("index"))  
+
+    players = Players.find_user_id_of_tour(id)
 
     for player in players:
         if player == current_user.id:
             flash('You have already signed up for the tournament')
             return redirect(url_for('tournament', id=id))
 
-    if len(players) == T.player_count:
+    if len(players) == joinT.player_count:
         flash('The tournament you want to sign up for is full')
         return redirect(url_for('tournament', id=id))
 
@@ -125,6 +157,16 @@ def tour_join(id):
 @app.route("/tournament/<string:id>/start", methods=["POST"])
 @login_required
 def tour_start(id):
+
+    startT = Tournament.query.get(id)
+
+    if not startT:
+        flash('The tournament your trying to start does not exist')
+        return redirect(url_for("index")) 
+
+    if not startT.account_id == current_user.id:
+        flash('You are trying to start a tournament that you do not have permission for')
+        return redirect(url_for('tournament', id=id))
 
     players = Players.find_user_id_of_tour(id)
 
@@ -167,7 +209,7 @@ def tour_start(id):
             round_number += 1
             round_multiplier = round_multiplier * 2
 
-    startT = Tournament.query.get(id)
+    
     startT.started = True
     db.session().commit()
 

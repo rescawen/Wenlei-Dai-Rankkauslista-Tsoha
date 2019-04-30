@@ -64,3 +64,16 @@ class Match(db.Model):
 
     # WE SHOULD ADD ANOTHER METHOD THAT USES THIS WINNER METHOD TO AUTOMATICALLY PUSH MATCHES THAT DON'T HAVE OPPONENTS ON THE FIRST ROUND FORWARD
 
+    @staticmethod
+    def find_largest_round_by_tour(tournament_id):
+        stmt = text("SELECT MAX(round_number) FROM match"
+                    " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
+
+        response = db.engine.execute(stmt)
+
+        largest_round = 0
+
+        for row in response:
+            largest_round = row[0]
+
+        return largest_round

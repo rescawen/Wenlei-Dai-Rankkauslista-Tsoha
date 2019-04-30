@@ -63,7 +63,7 @@
                                           </button>
                                     </div>
                                     <form method="POST"
-                                          action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id, match_id=match.match_id) }}">
+                                          action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id) }}">
                                           <div class="modal-body">
                                                 <p><b>{{ match.player1_name }}</b> score</p>
                                                 {{ form.player1_score }}
