@@ -8,7 +8,7 @@ Programming languages: Python 3, SQL, HTML, CSS
 
 #### [Heroku Link](https://wenlei-dai-rankkauslista-tsoha.herokuapp.com/)
 #### [Userstory](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userstory.md)
-#### [Database Description](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md), [Database Diagram](https://raw.githubusercontent.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/master/documentation/tsohatietokantakaaviofinal.jpg)
+#### [Database Description](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md), [Database Diagram](https://raw.githubusercontent.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/master/documentation/pictures/tsohatietokantakaaviofinal.jpg)
 #### [User Guide](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userguide.md)
 #### [Incomplete Features](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/incompletefeatures.md)
 
