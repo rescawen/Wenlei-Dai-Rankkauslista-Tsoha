@@ -8,7 +8,7 @@ from application.tour.forms import TournamentForm
 from application.match.models import Match
 from application.match.forms import MatchForm
 
-@app.route("/tournament/<string:id>", methods=["GET"])
+@app.route("/tournament/<string:id>", methods=["GET", "POST"])
 @login_required
 def tournament(id):
 
@@ -23,20 +23,25 @@ def tournament(id):
     if T.started == True:
         tm = Match.query.filter_by(tournament_id=id).order_by('match_id')
         
-        maximum_rounds = 1
+        maximum_rounds = 0
 
         for player in players:
             for m in tm:
                 if m.round_number > maximum_rounds:
                     maximum_rounds = m.round_number
-
                 if player.id == m.player1_id:
                     m.player1_name = player.name
                 elif player.id == m.player2_id:
                     m.player2_name = player.name
+        
+        if maximum_rounds == 0:
+            T.started = False
+            db.session().commit()
+            return redirect(url_for('tournament', id=id))
 
         return render_template("tournament/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players, matches = tm, form = MatchForm(), maximum_rounds = maximum_rounds)
-    else:
+    
+    if T.started == False:
         return render_template("tournament/tournament.html", id=id, tournament = Tournament.query.get(id), tournamentplayers = players)
 
 @app.route("/tournament/new/")
@@ -117,6 +122,10 @@ def tour_delete(id):
 
     if not deleteT.account_id == current_user.id:
         flash('You are trying to delete a tournament that you do not have permission for')
+        return redirect(url_for('tournament', id=id))
+
+    if deleteT.started == True:
+        flash('You are trying to delete a tournament that has already started')
         return redirect(url_for('tournament', id=id))
 
     Players.delete_rows_with_tour(id)
