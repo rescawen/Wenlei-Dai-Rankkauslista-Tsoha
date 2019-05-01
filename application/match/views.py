@@ -1,9 +1,8 @@
-from flask import render_template, flash, request, redirect, url_for
+from flask import flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.tour.models import Tournament, Players
-from application.tour.forms import TournamentForm
+from application.tour.models import Tournament
 
 from application.match.models import Match
 from application.match.forms import MatchForm
@@ -27,7 +26,7 @@ def match_submit(id, tournament_id):
     form = MatchForm(request.form)
 
     if not form.validate():
-        flash('empty scores for your match result or did not select winner')
+        flash('Scores out of range 0-99 or empty. Or did not select winner')
         return redirect(url_for('tournament', id=tournament_id))
 
     editM.player1_score = form.player1_score.data

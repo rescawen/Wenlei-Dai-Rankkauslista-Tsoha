@@ -1,6 +1,4 @@
 from application import db
-from application.auth.models import User
-
 from sqlalchemy.sql import text
 
 class Players(object):
@@ -8,25 +6,6 @@ class Players(object):
     def __init__(self, account_id, tournament_id):
         self.account_id = account_id
         self.tournament_id = tournament_id
-        
-    @staticmethod
-    def find_tour_with_user(account_id):
-        stmt = text("SELECT * FROM tournament"
-                     " LEFT JOIN players ON players.tournament_id = tournament.id"
-                     " WHERE (players.account_id = :account_id)").params(account_id=account_id)
-
-        # stmt = text("SELECT tournament_id FROM players"
-        #            " WHERE account_id = :account_id").params(account_id=account_id)
-
-        response = db.engine.execute(stmt)
-
-        # userstournaments = []
-
-        # for row in response:
-        #     userstournaments.append(Tournament.query.get(row[0]))
-
-        return response
-
 
     @staticmethod
     def find_users_of_tour(tournament_id):
@@ -34,15 +13,7 @@ class Players(object):
                      " LEFT JOIN players ON players.account_id = account.id"
                      " WHERE (players.tournament_id = :tournament_id)").params(tournament_id=tournament_id)
 
-        # stmt = text("SELECT account_id FROM players"
-        #            " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
-
         response = db.engine.execute(stmt)
-
-        # tournamentplayers = []
-
-        # for row in response:
-        #     tournamentplayers.append(User.query.get(row[0])) # should only get users non sensitive information
 
         return response
     
@@ -52,11 +23,9 @@ class Players(object):
                    " WHERE tournament_id = :tournament_id").params(tournament_id=tournament_id)
 
         response = db.engine.execute(stmt)
-
         tournamentplayers = []
-
         for row in response:
-            tournamentplayers.append(row[0]) # should only get users non sensitive information
+            tournamentplayers.append(row[0])
 
         return tournamentplayers
 
@@ -67,9 +36,7 @@ class Players(object):
                      " WHERE (players.tournament_id = :tournament_id)").params(tournament_id=tournament_id)
 
         response = db.engine.execute(stmt)
-
         count = 0
-
         for row in response:
             count = row[0]
 
@@ -82,9 +49,7 @@ class Players(object):
                      " WHERE (players.account_id = :account_id)").params(account_id=account_id)
 
         response = db.engine.execute(stmt)
-
         count = 0
-
         for row in response:
             count = row[0]
 

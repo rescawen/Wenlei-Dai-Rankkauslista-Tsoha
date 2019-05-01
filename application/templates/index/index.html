@@ -4,7 +4,6 @@
 {{ error }}
 
 {% if current_user.is_authenticated %}
-
 <div class="container-frontpage-logged-in">
       <div class="left-item">
             <div class="jumbotron">
@@ -71,7 +70,6 @@
             </div>
       </div>
 </div>
-
 {% else %}
 
 <div class="container-frontpage-not-logged">
@@ -137,6 +135,4 @@
       </div>
 </div>
 {% endif %}
-
-
 {% endblock %}

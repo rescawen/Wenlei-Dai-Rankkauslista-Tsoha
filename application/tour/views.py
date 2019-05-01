@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.tour.models import Tournament, Players
 from application.tour.forms import TournamentForm
-
 from application.match.models import Match
 from application.match.forms import MatchForm
 
@@ -46,7 +45,7 @@ def tournament(id):
 
 @app.route("/tournament/new/")
 @login_required
-def tour_new(): # should this naming be create_page?
+def tour_new():
     return render_template("tournament/createform.html", form = TournamentForm())
 
 @app.route("/tournament/create", methods=["POST"])
@@ -63,7 +62,7 @@ def tour_create():
 
     return redirect(url_for("index"))  
 
-@app.route("/tournament/<string:id>/edit", methods=["GET"])
+@app.route("/tournament/<string:id>/editpage", methods=["GET"])
 @login_required
 def tour_edit_page(id):
     editT = Tournament.query.get(id)
@@ -183,11 +182,16 @@ def tour_start(id):
         flash('You must have at least one player to start a tournament')
         return redirect(url_for('tournament', id=id)) 
 
+    # Below starts the algorithm for generating the matches
+
     minimum_player_count = 2
     bracket_size = 0
     round_number = 1
     round_counter = 1
     round_multiplier = 2
+
+    # Creating theoretical maximum amount of matches, for example 5,6,7 amount of players in a tournament all get bumped -> 8
+    # This allows us to retain the single elimination bracket balance.
 
     while True:
         if len(players) <= minimum_player_count:
@@ -196,18 +200,23 @@ def tour_start(id):
         else:
             minimum_player_count = minimum_player_count * 2
 
-    player1_list = players[:bracket_size//2]
-    player2_list = players[bracket_size//2:]
+    player1_list = players[:bracket_size//2] # Dividing our player list 
+    player2_list = players[bracket_size//2:] # into two separate ones 
 
     for i in range(bracket_size-1):
 
-        if i > (bracket_size/2)-2: # why is this -2 ??????
+        if i > (bracket_size/2)-2: # theoretically should be -1, but -2 gives correct result in practice
+
+            # Here we are creating the left most round of the bracket, in the other the first rounds to be played
 
             if not player2_list:
                 newM = Match(id, i+1, round_number, player1_list.pop(), None)
             else:
                 newM = Match(id, i+1, round_number, player1_list.pop(), player2_list.pop())
         else:
+
+            # Creating the rest of the matches which obviously do not have players yet.
+
             newM = Match(id, i+1, round_number, None, None)
 
         db.session().add(newM)

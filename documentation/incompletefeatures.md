@@ -8,6 +8,8 @@ Custom made sql statements using text cannot be used for pagination. The officia
 
 Match deletion breaks the front end of rendering. The plan was just to get a walking skeleton/vertical integration working first which included the joining of tournaments, generating matches for any amount of players and submitting match results properly. I did not forsee the complications of how difficult it is to just get the most basic version of rendering the bracket. 
 
+After generating all the matches in tour_start I was unable to finish the plan of automatically pushing forward players who have essentially a bypass for their first matches. In other words if a player has a placeholder `Player 2` as their opponent it would automatically detect it, push the player to the next match and delete the placeholder match completely.
+
 ## The features that are left out of the work. 
 
 The start time for a tournament is usually a very important feature which is left out due to problems in the front end. The input field for the datetime was not straight forward and did not come natively with HTML5 for example in the firefox browser. 

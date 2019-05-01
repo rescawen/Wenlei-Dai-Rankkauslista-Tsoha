@@ -8,11 +8,9 @@ class User(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
                               onupdate=db.func.current_timestamp())
-
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
-    
     tournaments = db.relationship('Tournament', backref='account', lazy=True)
 
     def __init__(self, name, username, password):
@@ -31,6 +29,3 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
-
-    def roles(self): # kaikilla on nyt admin, todellisuudessa tietokantaan.
-        return ["ADMIN"]

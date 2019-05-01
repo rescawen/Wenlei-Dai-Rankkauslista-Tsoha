@@ -2,8 +2,6 @@
 
 {% block body %}
 {{ error }}
-
-
 <div class="jumbotron">
       <h1 class="display-4">{{ tournament.name }}</h1>
       <br />
@@ -13,36 +11,25 @@
       {% endif %}
       <br />
       {% if current_user.id == tournament.account_id and tournament.started == False %}
-
       <form method="GET" action="{{ url_for('tour_edit_page', id=tournament.id) }}">
             <input type="submit" value="Edit this tournament" />
       </form>
-
       <br />
-
       <form method="POST" action="{{ url_for('tour_start', id=tournament.id) }}">
             <input type="submit" value="Start this tournament!" />
       </form>
-
       {% endif %}
       <hr class="my-4">
-
       {% if tournament.started == True %}
       <div class="bracket">
-
             {% for round in range(maximum_rounds, 0 , -1) %}
-
             <ul>
                   {% for match in matches %}
                   {% if match.round_number == round %}
-
                   <li>&nbsp;</li>
-
                   <li class="game game-top ">
                         <b>{{ match.player1_name }}</b><span>{{ match.player1_score }}</span></li>
-
                   <li>&nbsp;
-                        <!-- super user or admin can always change and report result, average user can only report own match result -->
                         {% if match.player1_id == current_user.id or match.player2_id == current_user.id or tournament.account_id == current_user.id %}
                         <button type="button" class="btn btn-primary report-btn" data-toggle="modal"
                               data-target="#{{ match.match_id }}">
@@ -50,7 +37,6 @@
                         </button>
                         {% endif %}
                   </li>
-
                   <div class="modal fade" id="{{ match.match_id }}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -97,39 +83,25 @@
                   <li class="game game-bottom "><b>{{ match.player2_name }}</b>
                         <span>{{ match.player2_score }}</span>
                   </li>
-
                   <li>&nbsp;</li>
-
                   {% endif %}
                   {% endfor %}
-
             </ul>
-
             {% endfor %}
-
       </div>
       {% endif %}
 
-
       {% if tournament.started == False %}
-
-
       <form method="POST" action="{{ url_for('tour_join', id=tournament.id) }}">
             <input type="submit" value="Join this tournament!" />
       </form>
-
       <br />
-
       <p>Current list of players who have signed up:</p>
       {% endif %}
-
       <ol>
             {% for player in tournamentplayers %}
             <li>{{ player.username }}</li>
             {% endfor %}
       </ol>
-
 </div>
-
-
 {% endblock %}

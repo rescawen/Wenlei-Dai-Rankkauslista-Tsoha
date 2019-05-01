@@ -6,8 +6,8 @@
     <title>Tournament Bracket Application</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bracket.css') }}">
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div class="form-inline mt-2 mt-md-0">
-                <a href="{{ url_for('auth_logout') }}">Hello user {{ current_user.name }} -- Logout</a>
+                <a href="{{ url_for('auth_logout') }}">Logout User: {{ current_user.name }}</a>
             </div>
             {% else %}
             <ul class="navbar-nav mr-auto">
@@ -41,14 +41,13 @@
             {% endif %}
         </div>
     </nav>
-
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">{{ message }}</div>
+    {% endfor %}
+
     {% endif %}
     {% endwith %}
 

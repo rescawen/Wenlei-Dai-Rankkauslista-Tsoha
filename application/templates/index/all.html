@@ -24,16 +24,9 @@
     </div>
 </div>
 
-
 <div class="pagination">
-{% for page in tournaments.iter_pages() %}
-
-{% if page %}
-<a href="{{ url_for('all_tour', page_num=page) }}">{{ page }}</a>
-{% else %}
-...
-{% endif %}
-
-{% endfor%}
+    {% for page in tournaments.iter_pages() %}
+    {% if page %}<a href="{{ url_for('all_tour', page_num=page) }}">{{ page }}</a>{% endif %}
+    {% endfor%}
 </div>
 {% endblock %}
