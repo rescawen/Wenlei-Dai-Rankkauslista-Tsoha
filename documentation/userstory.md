@@ -175,8 +175,8 @@
       
       (After some processing with the match generating algorithm we do the following as many times as there are matches)
       
-      INSERT INTO "match" (date_created, date_modified, tournament_id, match_id, round_number, player1_id, player2_id,              
-      player1_name, player2_name, player1_score, player2_score, winner_id) 
+      INSERT INTO "match" (date_created, date_modified, tournament_id, match_id, round_number, 
+      player1_id, player2_id, player1_name, player2_name, player1_score, player2_score, winner_id) 
       VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       
       (Finally we toggle the tournament into started state)
@@ -213,11 +213,33 @@
 
 ### When user is logged in and in a specific tournament that has started
 
-- User can see the whole bracket.
+- User can see the whole bracket with all the matches.
+
+      SELECT "match".id AS match_id_1, 
+            "match".date_created AS match_date_created, 
+            "match".date_modified AS match_date_modified, 
+            "match".tournament_id AS match_tournament_id, 
+            "match".match_id AS match_match_id, 
+            "match".round_number AS match_round_number, 
+            "match".player1_id AS match_player1_id, 
+            "match".player2_id AS match_player2_id, 
+            "match".player1_name AS match_player1_name, 
+            "match".player2_name AS match_player2_name, 
+            "match".player1_score AS match_player1_score, 
+            "match".player2_score AS match_player2_score, 
+            "match".winner_id AS match_winner_id 
+            FROM "match" 
+            WHERE "match".tournament_id = ? ORDER BY "match".match_id
+
 - If user is participating then the user can hover mouse inbetween their matches to reveal the `report result` button and click it trigger report result form.
 - If user is the creator of the tournament, then the user has access to all the `report result` buttons in the bracket.
+(All of the above are user interface features and do not have SQL statements that are unique and aren't found previously)
 
 ### When the user is logged in, still in a specific tournament that has started and triggered the report result form
 
 - User can submit scores for matches that they are participating in and choose a winner.
+
+
+
+
 - If user is the creator of the tournament, then the user can also delete matches starting from the leaflets. 
