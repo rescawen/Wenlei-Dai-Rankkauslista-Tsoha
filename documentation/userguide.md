@@ -4,7 +4,7 @@
 
 The applications main features are managing tournament as an administrator as well as joing and playing in a tournament as player.
 
-Once logged in you see three lists of tournaments, one for all the tournaments that you have joined, another for all the tournaments available and lastly the ones that you have created and manage. 
+Once logged in you see three lists of tournaments, one for all the tournaments that you have joined, another for all the tournaments available and lastly the ones that you have created and manage. You can also click their respective links at the navigation bar at the top which takes you into a page with pagination that lists all of the tournamnents.
 
 ![loggedinindex](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2021-47-11.png)
 
