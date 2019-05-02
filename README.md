@@ -32,3 +32,7 @@ Note: the database is situated under [folder database](https://github.com/rescaw
 After cloning the repository and installing the dependencies: 
 
 `python run.py`
+
+## Additional information
+
+The css used to render the [bracket](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/application/static/bracket.css) comes from the following the [guide](http://blog.krawaller.se/posts/exploring-a-css3-tournament-bracket/). 
