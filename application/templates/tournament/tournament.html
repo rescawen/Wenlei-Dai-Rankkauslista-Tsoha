@@ -49,7 +49,7 @@
                                           </button>
                                     </div>
                                     <form method="POST"
-                                          action="{{ url_for('match_submit', id=match.id, tournament_id=tournament.id) }}">
+                                          action="{{ url_for('match_submit', id=match.id) }}">
                                           <div class="modal-body">
                                                 <p><b>{{ match.player1_name }}</b> score</p>
                                                 {{ form.player1_score }}
@@ -58,13 +58,6 @@
                                                 {{ form.winner_boolean }}
                                                 <p><b>{{ match.player2_name }}</b> score</p>
                                                 {{ form.player2_score }}
-                                                <div id="playerids" style="display: none;">
-                                                      {{ form.player1_id(value=match.player1_id) }}
-                                                      {% if match.player2_id %}
-                                                      {{ form.player2_id(value=match.player2_id) }}
-                                                      {% else %}
-                                                      {% endif %}
-                                                </div>
                                           </div>
                                           <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Submit
@@ -73,7 +66,7 @@
                                     </form>
                                     {% if tournament.account_id == current_user.id %}
                                     <form method="POST"
-                                          action="{{ url_for('match_delete', id=match.id, tournament_id=tournament.id, round_number=match.round_number, maximum_rounds=maximum_rounds) }}">
+                                          action="{{ url_for('match_delete', id=match.id) }}">
                                           <button class=" btn btn-danger btn-block">delete match</button>
                                     </form>
                                     {% endif %}
