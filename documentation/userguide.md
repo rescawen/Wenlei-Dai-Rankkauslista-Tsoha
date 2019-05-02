@@ -6,22 +6,29 @@ The applications main features are managing tournament as an administrator as we
 
 Once logged in you see three lists of tournaments, one for all the tournaments that you have joined, another for all the tournaments available and lastly the ones that you have created and manage. 
 
+![loggedinindex](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2021-47-11.png)
+
 ## Where can you register and log in?
 
 Registration is to the right to the title of the application which also serves as a home button. 
+
+![login/register](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2021-46-46.png)
 
 ## How to use the basic features?
 
 Once you land on the page as a new user, you can immediately see a list of all the latest tournaments. The number to the right of the tournament name enclosed in pill bubble refers to the amount of players in the tournament. If the number is in x/y format then it means the tournament is still in registration and if it is a single number format then it is the final amount of players participating in an already started tournament.
 
-Clicking tournament will take you into the tournament specific page. In the tournament specific page you can see the names of the players who have signed up and the bracket of the tournament once the tournament has begun. If you are the tournament administrator you have additional edit, delete buttons to modify the tournament before it begins and also possibility to edit all matches once the tournament has begun. 
+Clicking tournament will take you into the tournament specific page. In the tournament specific page you can see the names of the players who have signed up and the bracket of the tournament once the tournament has begun. If you are the tournament creator you can go into the editpage where you can delete or edit modify the tournament before it begins. 
+
+![editpage](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2022-15-01.png)
+
+also possibility to edit all matches once the tournament has begun. 
 
 Once the tournament has started and the bracket is generated, you can hover your mouse in between the two players to reveal the report match button. Once clicking the report match a modal will animate to the middle of the screen where you can fill in the result for the matches. 
 
 ![hoverovermatch](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2022-19-00.png)
 
-
-Winner and score are purposely designed to be different as it makes it possible to retain a score, in case the winner of the match has to leave and we want to advance the losing player as replacement for the next match.
+Winner and score are purposely designed to be separate as it makes it possible to retain a score, in case the winner of the match cannot continue to play and we want to advance the losing player as replacement for the next match.
 
 
 
