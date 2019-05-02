@@ -57,12 +57,10 @@ Having the attribute there makes it easy to do the matching and rendering placeh
 		player2_name VARCHAR(144) NOT NULL, 
 		player1_score INTEGER NOT NULL, 
 		player2_score INTEGER NOT NULL, 
-		winner_id INTEGER,
 		PRIMARY KEY (id), 
 		FOREIGN KEY(tournament_id) REFERENCES tournament (id), 
 		FOREIGN KEY(player1_id) REFERENCES account (id), 
 		FOREIGN KEY(player2_id) REFERENCES account (id), 
-		FOREIGN KEY(winner_id) REFERENCES account (id)
 	)
 
 ### Original database plans before starting the project.
