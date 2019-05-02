@@ -7,22 +7,35 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 - User can see a partial list of the latest tournaments. For each tournament there is its name and player count displayed.
 
       SELECT tournament.id AS tournament_id, 
-        tournament.date_created AS tournament_date_created, 
-        tournament.date_modified AS tournament_date_modified, 
-        tournament.name AS tournament_name, 
-        tournament.player_count AS tournament_player_count, 
-        tournament.account_id AS tournament_account_id, 
-        tournament.description AS tournament_description, 
-        tournament.started AS tournament_started 
-        FROM tournament 
-        ORDER BY tournament.date_modified DESC 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament 
+            ORDER BY tournament.date_modified DESC 
   
 - User can log in.
-- User can click `Register as new user` in the navigation bar to go to new account registration page.
+
+      SELECT account.id AS account_id, 
+            account.date_created AS account_date_created, 
+            account.date_modified AS account_date_modified, 
+            account.name AS account_name, 
+            account.username AS account_username, 
+            account.password AS account_password 
+            FROM account 
+            WHERE account.username = ? AND account.password = ?
+
+- User can click `Register as new user` in the navigation bar to go to new account registration page (link doesn't have SQL statement).
 
 ### When user is in account registration page
 
 - User can fill out a form with name, username and password to register.
+
+      INSERT INTO account (date_created, date_modified, name, username, password) 
+            VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
 
 ### When user is logged in and is in any page
 
@@ -31,7 +44,8 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 - User can click `Joined tournaments` in the navigation bar to go to joined tournaments page.
 - User can click `Owned tournaments` in the navigation bar to go to owned tournaments page.
 - User can click `Create new tournament` in the navigation bar to go to new tournament creation page.
-- User can log out
+- User can log out. <br/>
+ (links don't have SQL statement).
 
 ### When user is logged into index page
 
