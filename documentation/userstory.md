@@ -15,8 +15,16 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
             tournament.description AS tournament_description, 
             tournament.started AS tournament_started 
             FROM tournament 
-            ORDER BY tournament.date_modified DESC 
+            ORDER BY tournament.date_modified DESC
+            LIMIT ? OFFSET ?
   
+- User can see the current amount of players signed up for the tournament in the blue bubble pill right to the name.
+
+      SELECT COUNT(*) 
+            FROM account 
+            LEFT JOIN players ON players.account_id = account.id 
+            WHERE (players.tournament_id = ?)
+
 - User can log in.
 
       SELECT account.id AS account_id, 
@@ -27,6 +35,7 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
             account.password AS account_password 
             FROM account 
             WHERE account.username = ? AND account.password = ?
+            LIMIT ? OFFSET ?
 
 - User can click `Register as new user` in the navigation bar to go to new account registration page (link doesn't have SQL statement).
 
@@ -49,10 +58,58 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 
 ### When user is logged into index page
 
-- User sees a partial list of all tournaments. <br/>
-  `SELECT * FROM tournament`
-- User sees a list of all tournaments it has signed up for. <br/>
-- User sees a list of all tournaments it has created and administrates. <br/>
+- User can see a partial list of the latest tournaments.
+  
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament ORDER BY tournament.date_modified DESC
+            LIMIT ? OFFSET ?
+            
+- User can see number of all the tournaments it has signed up for above the list below.
+
+      SELECT COUNT(*) 
+            FROM tournament 
+            LEFT JOIN players ON players.tournament_id = tournament.id 
+            WHERE (players.account_id = ?)
+
+
+- User sees a list of all tournaments it has signed up for. 
+
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament 
+            JOIN players ON tournament.id = players.tournament_id 
+            WHERE players.account_id = ? 
+            ORDER BY tournament.date_modified DESC
+            LIMIT ? OFFSET ?
+
+- User sees a list of all tournaments it has created and administrates. 
+
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament 
+            WHERE tournament.account_id = ? 
+            ORDER BY tournament.date_modified DESC
+            LIMIT ? OFFSET ?
+
 - User can click a tournament name to take them into a specific tournament page <br/>
   `SELECT * FROM tournament WHERE id='tournament.id'`
 
