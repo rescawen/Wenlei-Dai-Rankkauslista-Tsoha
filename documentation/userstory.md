@@ -138,9 +138,13 @@
 
 - User can fill out a form with name, maximum player count and optional description to create a new tournament.
 
+      INSERT INTO tournament (date_created, date_modified, name, player_count, account_id, description, started) 
+            VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?)
+
+
 ### When user is logged in and in a specific tournament that has not started
 
-- User can see tournament title.
+- User can see the tournament title.
 
       SELECT tournament.id AS tournament_id, 
             tournament.date_created AS tournament_date_created, 
@@ -182,9 +186,30 @@
 - If user is the creator of the tournament, then user can click `edit tournament` button to go to tournament edit page (link doesn't have SQL statement).
 
 ### When user is logged in and in tournament editing page as creator of the tournament
+- User can see the title of the tournament it is editing (query used for prepopulating form as well).
 
-- User can click the `delete tournament` button to delete the specific tournament.
-- User can fill out a form with name, maximum player count and optional description to edit the specific tournament.
+      SELECT tournament.id AS tournament_id, 
+           tournament.date_created AS tournament_date_created, 
+           tournament.date_modified AS tournament_date_modified, 
+           tournament.name AS tournament_name, 
+           tournament.player_count AS tournament_player_count, 
+           tournament.account_id AS tournament_account_id, 
+           tournament.description AS tournament_description, 
+           tournament.started AS tournament_started 
+           FROM tournament 
+           WHERE tournament.id = ?
+
+- User can click the `delete tournament` button to delete the specific tournament (need to also delete from players table).
+
+      DELETE FROM players WHERE tournament_id = ?
+      
+      DELETE FROM tournament WHERE tournament.id = ?
+
+- User can fill out a form with name, maximum player count and optional description prepopulated with old information to edit the specific tournament.
+
+      UPDATE tournament 
+      SET date_modified=CURRENT_TIMESTAMP, name=?, player_count=?, description=? 
+      WHERE tournament.id = ?
 
 ### When user is logged in and in a specific tournament that has started
 
