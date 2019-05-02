@@ -4,8 +4,19 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 
 ### When user lands on front/index page unregistered/not logged in
 
-- User can see a partial list of all tournaments. For each tournament there is its name and player count displayed. <br/>
-  `SELECT * FROM tournament`
+- User can see a partial list of the latest tournaments. For each tournament there is its name and player count displayed.
+
+      SELECT tournament.id AS tournament_id, 
+        tournament.date_created AS tournament_date_created, 
+        tournament.date_modified AS tournament_date_modified, 
+        tournament.name AS tournament_name, 
+        tournament.player_count AS tournament_player_count, 
+        tournament.account_id AS tournament_account_id, 
+        tournament.description AS tournament_description, 
+        tournament.started AS tournament_started 
+        FROM tournament 
+        ORDER BY tournament.date_modified DESC 
+  
 - User can log in.
 - User can click `Register as new user` in the navigation bar to go to new account registration page.
 
