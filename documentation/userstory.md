@@ -1,5 +1,3 @@
-Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt, lisää dokumentaatiossasi käyttötapauksiin niihin liittyvät kyselyt.Jos jokin käyttötapaus jää toteuttamatta, merkitse siitä tieto dokumentaatioosi.
-
 # User Story
 
 ### When user lands on front/index page unregistered/not logged in
@@ -110,8 +108,7 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
             ORDER BY tournament.date_modified DESC
             LIMIT ? OFFSET ?
 
-- User can click a tournament name to take them into a specific tournament page <br/>
-  `SELECT * FROM tournament WHERE id='tournament.id'`
+- User can click a tournament name to take them into a specific tournament page (link doesn't have SQL statement).
 
 ### When user is logged and in all tournaments page
 
@@ -143,9 +140,46 @@ Jokaista käyttötapausta vastaa yksi tietokantakysely. Jos et ole vielä tehnyt
 
 ### When user is logged in and in a specific tournament that has not started
 
+- User can see tournament title.
+
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament 
+            WHERE tournament.id = ?
+
+- User can see list of players who have signed up for the tournament.
+
+      SELECT * FROM account 
+            LEFT JOIN players ON players.account_id = account.id 
+            WHERE (players.tournament_id = ?)
+
 - User can click the `Join tournament` button to join the specific tournament.
-- If user is the creator of the tournament, then the user can choose to start the tournament regardless of it not reaching maximum player count with a minimum of one player.
-- If user is the creator of the tournament, then user can click `edit tournament` button to go to tournament edit page.
+      
+      INSERT INTO players (account_id, tournament_id) VALUES (?, ?)
+
+- If user is the creator of the tournament, then the user can choose to start the tournament regardless of it not reaching maximum player count with a minimum of one player (will have multiple SQL statements because we generating all the matches).
+
+      (Query ids of the players because we need to use the list this for insertion into matches later)
+      
+      SELECT account_id FROM players WHERE tournament_id = ?
+      
+      (After some processing with the match generating algorithm we do the following as many times as there are matches)
+      
+      INSERT INTO "match" (date_created, date_modified, tournament_id, match_id, round_number, player1_id, player2_id,              
+      player1_name, player2_name, player1_score, player2_score, winner_id) 
+      VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      
+      (Finally we toggle the tournament into started state)
+      
+      UPDATE tournament SET date_modified=CURRENT_TIMESTAMP, started=? WHERE tournament.id = ?
+
+- If user is the creator of the tournament, then user can click `edit tournament` button to go to tournament edit page (link doesn't have SQL statement).
 
 ### When user is logged in and in tournament editing page as creator of the tournament
 
