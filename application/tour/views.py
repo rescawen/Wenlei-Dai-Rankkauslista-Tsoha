@@ -20,6 +20,7 @@ def tournament(id):
     players = Players.find_users_of_tour(id)
 
     if T.started == True:
+        
         tm = Match.query.filter_by(tournament_id=id).order_by('match_id')
         
         maximum_rounds = 0
@@ -154,9 +155,9 @@ def tour_join(id):
     if len(players) == joinT.player_count:
         flash('The tournament you want to sign up for is full')
         return redirect(url_for('tournament', id=id))
-
+    
     newP = Players(current_user.id, id)
-
+    
     db.session().add(newP)
     db.session().commit()
 
@@ -175,7 +176,7 @@ def tour_start(id):
     if not startT.account_id == current_user.id:
         flash('You are trying to start a tournament that you do not have permission for')
         return redirect(url_for('tournament', id=id))
-
+    
     players = Players.find_user_id_of_tour(id)
 
     if len(players) == 0:

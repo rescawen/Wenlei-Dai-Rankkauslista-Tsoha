@@ -19,7 +19,7 @@ class Match(db.Model):
     player2_name = db.Column(db.String(144), nullable=False)
     player1_score = db.Column(db.Integer, nullable=False)
     player2_score = db.Column(db.Integer, nullable=False)
-    winner_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) 
+    # winner_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=True) 
 
     def __init__(self, tournament_id, match_id, round_number, player1_id, player2_id):
         self.tournament_id = tournament_id
@@ -31,7 +31,7 @@ class Match(db.Model):
         self.player2_name = "Player 2"
         self.player1_score = 0
         self.player2_score = 0
-        self.winner_id = None
+        # self.winner_id = None
     
     @staticmethod
     def winner(player_id, tournament_id, match_id):

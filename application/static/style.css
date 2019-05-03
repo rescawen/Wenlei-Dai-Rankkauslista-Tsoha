@@ -3,6 +3,10 @@
     width:150px;
 }
 
+.textarea {
+  white-space: pre-line;
+}
+
 .container-frontpage-not-logged {
   display:flex;
   flex-direction: row;

@@ -33,20 +33,18 @@ def match_submit(id):
     editM.player2_score = form.player2_score.data
 
     if form.winner_boolean.data == 'player1':
-        editM.winner_id = editM.player1_id
-        Match.winner(form.player1_id.data, editM.tournament_id, editM.match_id)
+        Match.winner(editM.player1_id, editM.tournament_id, editM.match_id)
     elif form.winner_boolean.data == 'player2':
-        editM.winner_id = editM.player2_id
-        Match.winner(form.player2_id.data, editM.tournament_id, editM.match_id)
+        Match.winner(editM.player2_id, editM.tournament_id, editM.match_id)
 
     db.session().commit()
-
+    
     return redirect(url_for('tournament', id=editM.tournament_id))  
 
 @app.route("/match/<string:id>/delete", methods=["POST"])
 @login_required
 def match_delete(id):
-
+    
     deleteM = Match.query.get(id)
 
     if not deleteM:

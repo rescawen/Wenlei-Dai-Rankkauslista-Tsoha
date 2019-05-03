@@ -7,7 +7,7 @@
       <br />
       {% if tournament.description %}
       <h5>Tournament Description:</h5>
-      <p>{{ tournament.description }}</p>
+      <div class="textarea"><p>{{ tournament.description }}</p></div>
       {% endif %}
       <br />
       {% if current_user.id == tournament.account_id and tournament.started == False %}
