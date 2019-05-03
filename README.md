@@ -8,13 +8,13 @@ Programming languages: Python 3, SQL, HTML, CSS
 
 #### [Heroku Link](https://wenlei-dai-rankkauslista-tsoha.herokuapp.com/)
 #### [Userstory](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userstory.md)
-#### [Database Description](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md), [Database Diagram](https://raw.githubusercontent.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/master/documentation/pictures/tsohatietokantakaaviofinal.jpg)
+#### [Database Description](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md), [Database Diagram](https://raw.githubusercontent.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/master/documentation/pictures/tsohatietokantakaavioloppupalautus.jpg)
 #### [User Guide](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/userguide.md)
 #### [Incomplete Features](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/incompletefeatures.md)
 
 ## Topic Description
 
-The main page will show a list of all tournaments (visible even without log in). User can create and log in with an account. Once logged in, user can both create and join these tournaments. Tournaments are in single elimination format and have seedings based on the order of players who have joined it.
+Index page will show a list of latest tournaments (visible even without log in). User can create and log in with an account. Once logged in, user can both create and join these tournaments. Creator of the tournaments can delete and edit the tournament. All tournaments are open visible to all users. Tournaments are in single elimination format and the bracket renders graphically. Submitting results for matches will forward winner through the bracket. 
 
 The inspiration is a very simple version of [Challonge](https://challonge.com/).
 
