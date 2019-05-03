@@ -22,7 +22,7 @@ Clicking tournament will take you into the tournament specific page. In the tour
 
 ![unstartedT](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-02%2012-10-25.png)
 
-If you are the tournament creator you can go into the editpage where you can delete or edit modify the tournament before it begins. 
+If you are the tournament creator you can go into the editpage where you can delete or edit modify the tournament before it begins. This is an intentional decision for now, because there is no feature to prevent the creator from accidentally deleting an ongoing tournament. 
 
 ![editpage](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/pictures/Screenshot%20from%202019-05-01%2022-15-01.png)
 
