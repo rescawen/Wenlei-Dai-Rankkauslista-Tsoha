@@ -9,7 +9,7 @@ from application.auth.forms import LoginForm, RegistrationForm
 def auth_login():
 
     if request.method == "GET":
-        return render_template("auth/loginform.html", form = LoginForm())
+        return render_template("index/index.html", form = LoginForm())
 
     form = LoginForm(request.form)
     
