@@ -16,7 +16,7 @@
             ORDER BY tournament.date_modified DESC
             LIMIT ? OFFSET ?
   
-- User can see the current amount of players signed up for the tournament in the blue bubble pill right to the name.
+- User can see the current amount of players signed up for the tournament in the blue bubble pill right to the name (this is the same for the rest of the tournament lists).
 
       SELECT COUNT(*) 
             FROM account 
@@ -112,27 +112,66 @@
 
 ### When user is logged and in all tournaments page
 
-- User sees a partial list of all tournaments. <br/>
-  `SELECT * FROM tournament`
-- User can continue to browse the rest of all tournaments through pagination.
-- User can click a tournament name to take them into a specific tournament page <br/>
-  `SELECT * FROM tournament WHERE id='tournament.id'`
+- User sees a partial list of all tournaments. 
+
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name, 
+            tournament.player_count AS tournament_player_count, 
+            tournament.account_id AS tournament_account_id, 
+            tournament.description AS tournament_description, 
+            tournament.started AS tournament_started 
+            FROM tournament ORDER BY tournament.date_modified DESC
+            LIMIT 'ITEMS-PER-PAGE' OFFSET 'PAGE-NUMBER-MINUS-ONE-TIMES-ITEMS-PER-PAGE'
+           
+- User can continue to browse the rest of all tournaments through pagination (the following is only done if conditions in the [documenation](https://github.com/pallets/flask-sqlalchemy/blob/master/flask_sqlalchemy/__init__.py#L502) are fulfilled).
+
+      SELECT count(*) AS count_1 
+            FROM (SELECT tournament.id AS tournament_id, tournament.date_created AS tournament_date_created,      
+            tournament.date_modified AS tournament_date_modified, tournament.name AS tournament_name, tournament.player_count AS 
+            tournament_player_count, tournament.account_id AS tournament_account_id, tournament.description AS 
+            tournament_description, tournament.started AS tournament_started 
+            FROM tournament) AS anon_1
+      
+- User can click a tournament name to take them into a specific tournament page (link doesn't have SQL statement).
 
 ### When user is logged and in joined tournaments page
 
 - User sees a partial list of all tournaments it has signed up for <br/>
   `SELECT * FROM tournament`
 - User can continue to browse the rest of joined tournaments through pagination.
-- User can click a tournament name to take them into a specific tournament page <br/>
-  `SELECT * FROM tournament WHERE id='tournament.id'`
+- User can click a tournament name to take them into a specific tournament page (link doesn't have SQL statement).
 
 ### When user is logged and in owned tournaments page
 
-- User sees a partial list of all tournaments it has created and administrates. <br/>
-  `SELECT * FROM tournament`
-- User can continue to browse the rest of all tournaments through pagination.
-- User can click a tournament name to take them into a specific tournament page <br/>
-  `SELECT * FROM tournament WHERE id='tournament.id'`
+- User sees a partial list of all tournaments it has created and administrates. 
+
+      SELECT tournament.id AS tournament_id, 
+            tournament.date_created AS tournament_date_created, 
+            tournament.date_modified AS tournament_date_modified, 
+            tournament.name AS tournament_name,
+            tournament.player_count AS tournament_player_count,       
+            tournament.account_id AS tournament_account_id,
+            tournament.description AS tournament_description,
+            tournament.started AS tournament_started 
+            FROM tournament 
+            WHERE tournament.account_id = ? ORDER BY tournament.date_modified DESC
+            LIMIT 'ITEMS-PER-PAGE' OFFSET 'PAGE-NUMBER-MINUS-ONE-TIMES-ITEMS-PER-PAGE'
+
+
+- User can continue to browse the rest of all tournaments through pagination (the following is only done if conditions in the [documenation](https://github.com/pallets/flask-sqlalchemy/blob/master/flask_sqlalchemy/__init__.py#L502) are fulfilled).
+
+      SELECT count(*) AS count_1 
+            FROM (SELECT tournament.id AS tournament_id, tournament.date_created AS tournament_date_created,            
+            tournament.date_modified AS tournament_date_modified, tournament.name AS tournament_name, tournament.player_count AS 
+            tournament_player_count, tournament.account_id AS tournament_account_id, tournament.description AS 
+            tournament_description, tournament.started AS tournament_started 
+            FROM tournament 
+            WHERE tournament.account_id = ?) AS anon_1
+
+
+- User can click a tournament name to take them into a specific tournament page (link doesn't have SQL statement).
 
 ### When user is logged in and in tournament creation page
 
