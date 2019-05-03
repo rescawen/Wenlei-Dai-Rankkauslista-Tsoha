@@ -5,8 +5,12 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegistrationForm
 
-@app.route("/auth/login", methods = ["POST"])
+@app.route("/auth/login", methods = ["GET","POST"])
 def auth_login():
+
+    if request.method == "GET":
+        return render_template("auth/loginform.html", form = LoginForm())
+
     form = LoginForm(request.form)
     
     if not form.validate():
