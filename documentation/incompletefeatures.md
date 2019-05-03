@@ -22,6 +22,8 @@ Seeding is completely left out without trying. However usually seeding is done b
 
 The technical of way of implementing seeding would be to create the matches empty without players in it. In our case the unique player IDs, then depending on the seeding we manually insert the players who highest to opposite sides of bracket and continue this until all the players are inserted. 
 
+User customization was completely left out. It is cool to have country flag, team name, and icon present in the rendering of the bracket to create a better storyline for the tournament. However in the [database normalization](https://github.com/rescawen/Wenlei-Dai-Rankkauslista-Tsoha/blob/master/documentation/databasedescription.md) explanation I have prepared my app for a username change. This includes the tournaments the player has played in the past and after changing name it would be easy to identify your nametag in tournaments played a long time ago. Maybe even having 2 different name fields would actually be ideal. The name you originally played with would always be displayed for third party, but from a personal point of view you would always see your own latest username. 
+
 ## Future development plans
 
 Ideally the perfect way is to have the "Ranking websites/servers" plug their data into the tournament system and then there wouldn't manual labour seeding. There would be recommended seeding and admin can just confirm or slightly tweak it before starting the tournament.
